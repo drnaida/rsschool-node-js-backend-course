@@ -5,7 +5,7 @@ export const create = async () => {
         console.log('\n> Checking whether the folder exists');
         if (err) {
             console.error('No Folder. We will create the folder.');
-            fs.mkdirSync('./files');
+            fs.mkdirSync('./src/fs/files');
         }
         else {
             console.log('Folder exists')
