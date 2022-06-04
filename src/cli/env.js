@@ -5,7 +5,8 @@ export const parseEnv = () => {
             output = output + i + '=' + process.env[i] + '; ';
         }
     }
-    console.log(output)
+    output = output.slice(0, -2);
+    console.log(output);
 };
 
 await parseEnv();
