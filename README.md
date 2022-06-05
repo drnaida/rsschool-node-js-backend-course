@@ -6,7 +6,7 @@ Please for testing:
 
 2. Use scripts from package.json
 
-  "scripts": {
+ "scripts": {
     "fs:create": "node src/fs/create.js",
     "fs:copy": "node src/fs/copy.js",
     "fs:rename": "node src/fs/rename.js",
@@ -23,7 +23,7 @@ Please for testing:
     "zip:compress": "node src/zip/compress.js",
     "zip:decompress": "node src/zip/decompress.js",
     "wt:main": "node src/wt/main.js",
-    "cp:cp": "node src/cp/cp.js"
+    "cp:cp": "node src/cp/cp.js argument1 value argument2 value"
   },
   with npm run like in the example below:
 

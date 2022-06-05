@@ -1,7 +1,7 @@
-import { spawn } from 'child_process';
-const args = process.argv.slice(2);
+import { fork } from 'child_process';
+const argum = process.argv.slice(2);
 export const spawnChildProcess = async (args) => {
-    const child = spawn('pwd');
+    const child = fork("./src/cp/files/script.js", args);
 };
 
-await spawnChildProcess();
+await spawnChildProcess(argum);
