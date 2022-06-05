@@ -6,7 +6,7 @@ Please for testing:
 
 2. Use scripts from package.json
 
- "scripts": {
+  "scripts": {
     "fs:create": "node src/fs/create.js",
     "fs:copy": "node src/fs/copy.js",
     "fs:rename": "node src/fs/rename.js",
@@ -14,14 +14,14 @@ Please for testing:
     "fs:list": "node src/fs/list.js",
     "fs:read": "node src/fs/read.js",
     "cli:env": "node src/cli/env.js",
-    "cli:args": "node src/cli/args.js",
+    "cli:args": "node src/cli/args.js --propName value --prop2Name value2",
     "modules:cjsToEsm": "node src/modules/cjsToEsm.mjs",
     "hash:calcHash": "node src/hash/calcHash.js",
     "streams:read": "node src/streams/read.js",
     "streams:write": "node src/streams/write.js",
     "streams:transform": "node src/streams/transform.js",
-    "zlib:compress": "node src/zlib/compress.js",
-    "zlib:decompress": "node src/zlib/decompress.js",
+    "zip:compress": "node src/zip/compress.js",
+    "zip:decompress": "node src/zip/decompress.js",
     "wt:main": "node src/wt/main.js",
     "cp:cp": "node src/cp/cp.js"
   },
