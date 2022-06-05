@@ -30,3 +30,13 @@ Please for testing:
   """
     npm run fs:create
   """
+
+  **For testing CLI please use**
+
+  1. For env:
+
+  $env:RSS_1='Hello'; $env:RSS_2='World'; npm run cli:env
+
+  2. For Args:
+
+  npm run cli:args
