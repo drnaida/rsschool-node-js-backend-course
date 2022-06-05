@@ -1,4 +1,4 @@
-import fs from 'fs'; 
+import fs from 'fs';
 export const create = async () => {
     const content = 'I am fresh and young';
     fs.access('./src/fs/files', fs.constants.R_OK, (err) => {
@@ -28,7 +28,5 @@ export const create = async () => {
         });
     });
 };
-
-
 
 await create();
