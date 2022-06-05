@@ -6,13 +6,13 @@ Please for testing:
 
 2. Use scripts from package.json
 
-"scripts": {
+ "scripts": {
     "fs:create": "node src/fs/create.js",
-    "fs:copy": "node src/fs/create.js",
-    "fs:rename": "node src/fs/create.js",
-    "fs:delete": "node src/fs/create.js",
-    "fs:list": "node src/fs/create.js",
-    "fs:read": "node src/fs/create.js",
+    "fs:copy": "node src/fs/copy.js",
+    "fs:rename": "node src/fs/rename.js",
+    "fs:delete": "node src/fs/delete.js",
+    "fs:list": "node src/fs/list.js",
+    "fs:read": "node src/fs/read.js",
     "cli:env": "node src/cli/env.js",
     "cli:args": "node src/cli/args.js",
     "modules:cjsToEsm": "node src/modules/cjsToEsm.mjs",
@@ -25,7 +25,6 @@ Please for testing:
     "wt:main": "node src/wt/main.js",
     "cp:cp": "node src/cp/cp.js"
   },
-
   with npm run like in the example below:
 
   """

@@ -15,6 +15,7 @@ export const rename = async () => {
         }
         else {
             console.error('File already exists');
+            throw new Error('FS operation failed')
         }
     });
 };
