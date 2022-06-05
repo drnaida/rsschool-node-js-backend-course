@@ -1,12 +1,9 @@
-# rsschool-node-js-backend-course
-
-Please for testing:
-
-1. Go to the root folder of the repository
-
-2. Use scripts from package.json
-
- "scripts": {
+{
+  "name": "node-nodejs-basics",
+  "version": "1.0.0",
+  "description": "This repository is the part of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments",
+  "type": "module",
+  "scripts": {
     "fs:create": "node src/fs/create.js",
     "fs:copy": "node src/fs/copy.js",
     "fs:rename": "node src/fs/rename.js",
@@ -25,18 +22,15 @@ Please for testing:
     "wt:main": "node src/wt/main.js",
     "cp:cp": "node src/cp/cp.js argument1 value argument2 value"
   },
-  with npm run like in the example below:
-
-  """
-    npm run fs:create
-  """
-
-  **For testing CLI please use**
-
-  1. For env:
-
-  $env:RSS_1='Hello'; $env:RSS_2='World'; npm run cli:env
-
-  2. For Args:
-
-  npm run cli:args
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlreadyBored/node-nodejs-basics.git"
+  },
+  "keywords": ["nodejs", "assignments", "alreadybored"],
+  "author": "alreadybored",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlreadyBored/node-nodejs-basics/issues"
+  },
+  "homepage": "https://github.com/AlreadyBored/node-nodejs-basics#readme"
+}
