@@ -6,9 +6,7 @@ export const list = async () => {
           throw new Error('FS operation failed')
         else {
           console.log("Filenames in the folder:");
-          files.forEach(file => {
-            console.log(file);
-          })
+          console.log(files);
         }
     })
 };
