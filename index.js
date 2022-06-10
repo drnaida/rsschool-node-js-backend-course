@@ -18,7 +18,12 @@ rl.on('line', (input) => {
         rl.close();
     }
     if (input == 'up') {
-        changeDirectory();
+        changeDirectory('up');
+    }
+
+    if (input.startsWith('cd ')) {
+        const whereTo = input.split(' ')[1];
+        changeDirectory(whereTo);
     }
     let currDir = process.cwd();
     console.log(`You are currently in ${currDir}`);

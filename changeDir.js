@@ -1,15 +1,20 @@
 import process from 'process';
 import os from 'os';
  
-export const changeDirectory = async () => {
+export const changeDirectory = async (whereToGo) => {
   try {
   // Change the directory
   const userHomeDir = os.homedir();
   const currDir = process.cwd();
-  if (currDir == userHomeDir) {
-    console.log('You cannot go higher than the home directory');
-  } else {
-    process.chdir('../');
+  if (whereToGo == 'up') {
+    if (currDir == userHomeDir) {
+      console.log('You cannot go higher than the home directory');
+    } else {
+      process.chdir('../');
+    }
+  }
+  else {
+    process.chdir(whereToGo);
   }
 } catch (err) {
      
