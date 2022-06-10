@@ -1,5 +1,6 @@
-import { rmSync } from 'fs';
+import { changeDirectory } from './changeDir.js';
 import readline from 'readline';
+import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
 
 const rl = readline.createInterface({
@@ -7,11 +8,18 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 console.log(`Welcome! to the File Manager, ${usernameProvidedByUser}!`)
+let currDir = process.cwd();
+console.log(`You are currently in ${currDir}`);
 rl.on('line', (input) => {
     if (input == '.exit') {
         console.log(`Thank you for using File Manager, ${usernameProvidedByUser}!`);
         rl.close();
     }
+    if (input == 'up') {
+        changeDirectory();
+    }
+    let currDir = process.cwd();
+    console.log(`You are currently in ${currDir}`);
 });
 
 rl.on('SIGINT', () => {
