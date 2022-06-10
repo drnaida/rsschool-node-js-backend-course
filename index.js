@@ -1,5 +1,6 @@
 import { changeDirectory } from './changeDir.js';
 import { setHomeDirectory } from './startFromHomeDir.js';
+import { list } from './ls.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -25,6 +26,11 @@ rl.on('line', (input) => {
         const whereTo = input.split(' ')[1];
         changeDirectory(whereTo);
     }
+
+    if (input == 'ls') {
+        list();
+    }
+
     let currDir = process.cwd();
     console.log(`You are currently in ${currDir}`);
 });
