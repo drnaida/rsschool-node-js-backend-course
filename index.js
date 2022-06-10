@@ -1,4 +1,5 @@
 import { changeDirectory } from './changeDir.js';
+import { setHomeDirectory } from './startFromHomeDir.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -8,6 +9,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 console.log(`Welcome! to the File Manager, ${usernameProvidedByUser}!`)
+setHomeDirectory();
 let currDir = process.cwd();
 console.log(`You are currently in ${currDir}`);
 rl.on('line', (input) => {
