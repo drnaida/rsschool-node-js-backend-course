@@ -10,8 +10,16 @@ export const osCommands = async (parameter) => {
         })
     } else if (parameter == '--cpus') {
         return new Promise((resolve, reject) => {
+            const answer = {
+                'Amount of CPUS': '',
+                'models and clock rates': []
+            }
             try {
-                resolve(os.cpus());
+                answer['Amount of CPUS'] = os.cpus().length;
+                for (let i of os.cpus()) {
+                    answer['models and clock rates'].push(i.model);
+                }
+                resolve(answer);
             } catch(err) {
                 reject(err);
             }
