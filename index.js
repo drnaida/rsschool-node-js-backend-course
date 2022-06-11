@@ -49,8 +49,6 @@ rl.on('line', (input) => {
     if (input.startsWith('cat ')) {
         const whatToRead = input.split(' ')[1];
         read(whatToRead);
-        let currDir = process.cwd();
-        console.log(`You are currently in ${currDir}`);
     }
 
     if (input.startsWith('add ')) {
