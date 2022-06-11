@@ -6,6 +6,7 @@ import { create } from './createFile.js';
 import { rename } from './renameFile.js';
 import { remove } from './deleteFile.js';
 import { copy } from './copyFile.js';
+import {osCommands} from './osCommands.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -101,6 +102,18 @@ rl.on('line', (input) => {
                 console.error(err);
             }
         })();   
+    } else if (input.startsWith('os ')) {
+        (async () => {
+            try {
+                const parameter = input.split(' ')[1];
+                const osCommand = await osCommands(parameter);
+                console.log(osCommand);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })(); 
     } else {
         let currDir = process.cwd();
         console.log(`You are sdfds currently in ${currDir}`);
