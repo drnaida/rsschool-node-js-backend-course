@@ -54,8 +54,6 @@ rl.on('line', (input) => {
     if (input.startsWith('add ')) {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
-        let currDir = process.cwd();
-        console.log(`You are currently in ${currDir}`);
     }
 });
 
