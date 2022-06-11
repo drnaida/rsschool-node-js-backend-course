@@ -7,16 +7,8 @@ export const copy = async (whatToRead, whereToCopy) => {
     const writableStream = fs.createWriteStream(whereToWrite);
 
     readableStream.setEncoding('utf8');
-
-    readableStream.on('data', (chunk) => {
-        writableStream.write(chunk, () => {
-        });
-    });
-    writableStream.on('finish', () => {
-        let currDir = process.cwd();
-        console.log((`You are currently in ${currDir}`));
-    });
-    
-    // close the stream
-    writableStream.end();
+    return new Promise((resolve, reject) => {
+        writableStream.on('finish', resolve);
+        readableStream.pipe(writableStream);
+    })
 };

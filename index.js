@@ -6,6 +6,7 @@ import { create } from './createFile.js';
 import { rename } from './renameFile.js';
 import { remove } from './deleteFile.js';
 import { copy } from './copyFile.js';
+import { move } from './moveFile.js';
 import readline from 'readline';
 import process from 'process';
 import { copyFile } from 'fs';
@@ -76,9 +77,25 @@ rl.on('line', (input) => {
     }
 
     if (input.startsWith('cp ')) {
+        
+        (async () => {
+            try {
+                const whatToCreate = input.split(' ')[1];
+                const whereToCopy = input.split(' ')[2];
+                const write = await copy(whatToCreate, whereToCopy);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })();   
+        
+    }
+
+    if (input.startsWith('mv ')) {
         const whatToCreate = input.split(' ')[1];
         const whereToCopy = input.split(' ')[2];
-        copy(whatToCreate, whereToCopy);
+        move(whatToCreate, whereToCopy);
     }
 
     if (input.startsWith('rn ')) {
