@@ -1,6 +1,7 @@
 import { changeDirectory } from './changeDir.js';
 import { setHomeDirectory } from './startFromHomeDir.js';
 import { list } from './ls.js';
+import { read } from './read.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -29,6 +30,11 @@ rl.on('line', (input) => {
 
     if (input == 'ls') {
         list();
+    }
+
+    if (input.startsWith('cat ')) {
+        const whatToRead = input.split(' ')[1];
+        read(whatToRead);
     }
 
     let currDir = process.cwd();
