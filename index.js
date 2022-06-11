@@ -22,29 +22,43 @@ rl.on('line', (input) => {
     }
     if (input == 'up') {
         changeDirectory('up');
+        let currDir = process.cwd();
+        console.log(`You are currently in ${currDir}`);
     }
 
     if (input.startsWith('cd ')) {
         const whereTo = input.split(' ')[1];
         changeDirectory(whereTo);
+        let currDir = process.cwd();
+        console.log(`You are currently in ${currDir}`);
     }
 
     if (input == 'ls') {
-        list();
+        (async () => {
+            try {
+                const files = await list();
+                console.log(files);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })();   
     }
 
     if (input.startsWith('cat ')) {
         const whatToRead = input.split(' ')[1];
         read(whatToRead);
+        let currDir = process.cwd();
+        console.log(`You are currently in ${currDir}`);
     }
 
     if (input.startsWith('add ')) {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
+        let currDir = process.cwd();
+        console.log(`You are currently in ${currDir}`);
     }
-
-    let currDir = process.cwd();
-    console.log(`You are currently in ${currDir}`);
 });
 
 rl.on('SIGINT', () => {
