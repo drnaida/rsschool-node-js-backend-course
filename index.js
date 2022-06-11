@@ -3,6 +3,7 @@ import { setHomeDirectory } from './startFromHomeDir.js';
 import { list } from './ls.js';
 import { read } from './readFile.js';
 import { create } from './createFile.js';
+import { rename } from './renameFile.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -55,6 +56,25 @@ rl.on('line', (input) => {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
     }
+
+    if (input.startsWith('rn ')) {
+        (async () => {
+            try {
+                const whatToRename = input.split(' ')[1];
+                const howToRename = input.split(' ')[2];
+                const renameFile = await rename(whatToRename, howToRename);
+                console.log(renameFile);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })();   
+    } else {
+        let currDir = process.cwd();
+        console.log(`You are currently in ${currDir}`);
+    }
+    
 });
 
 rl.on('SIGINT', () => {
