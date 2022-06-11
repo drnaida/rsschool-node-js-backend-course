@@ -1,7 +1,9 @@
 import fs from 'fs';
 import process from 'process';
+import { getPath } from './isPathAbsolute.js';
 export const read = async (whatToRead) => {
-    const content = fs.createReadStream(whatToRead, 'utf8');
+    const the_path = getPath(whatToRead);
+    const content = fs.createReadStream(the_path, 'utf8');
     content.on("data", (chunk) => {
         console.log(chunk);
     });
