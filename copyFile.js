@@ -10,8 +10,13 @@ export const copy = async (whatToRead, whereToCopy) => {
 
     readableStream.on('data', (chunk) => {
         writableStream.write(chunk, () => {
-            let currDir = process.cwd();
-            console.log(`You are currently in ${currDir}`);
         });
     });
+    writableStream.on('finish', () => {
+        let currDir = process.cwd();
+        console.log((`You are currently in ${currDir}`));
+    });
+    
+    // close the stream
+    writableStream.end();
 };
