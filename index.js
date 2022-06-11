@@ -4,6 +4,7 @@ import { list } from './ls.js';
 import { read } from './readFile.js';
 import { create } from './createFile.js';
 import { rename } from './renameFile.js';
+import { remove } from './deleteFile.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -39,6 +40,20 @@ rl.on('line', (input) => {
             try {
                 const files = await list();
                 console.log(files);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })();   
+    }
+
+    if (input.startsWith('rm ')) {
+        (async () => {
+            try {
+                const whatToDelete = input.split(' ')[1];
+                const answer = await remove(whatToDelete);
+                console.log(answer);
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
             } catch (err) {
