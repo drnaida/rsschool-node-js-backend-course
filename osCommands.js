@@ -16,6 +16,30 @@ export const osCommands = async (parameter) => {
                 reject(err);
             }
         })
+    } else if (parameter == '--homedir') {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(os.homedir());
+            } catch(err) {
+                reject(err);
+            }
+        })
+    } else if (parameter == '--username') {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(os.userInfo().username);
+            } catch(err) {
+                reject(err);
+            }
+        })
+    } else if (parameter == '--architecture') {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(process.arch);
+            } catch(err) {
+                reject(err);
+            }
+        })
     } else {
         console.log('Error');
     }
