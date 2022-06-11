@@ -22,21 +22,16 @@ rl.on('line', (input) => {
     if (input == '.exit') {
         console.log(`Thank you for using File Manager, ${usernameProvidedByUser}!`);
         rl.close();
-    }
-    if (input == 'up') {
+    } else if (input == 'up') {
         changeDirectory('up');
         let currDir = process.cwd();
         console.log(`You are currently in ${currDir}`);
-    }
-
-    if (input.startsWith('cd ')) {
+    } else if (input.startsWith('cd ')) {
         const whereTo = input.split(' ')[1];
         changeDirectory(whereTo);
         let currDir = process.cwd();
         console.log(`You are currently in ${currDir}`);
-    }
-
-    if (input == 'ls') {
+    } else if (input == 'ls') {
         (async () => {
             try {
                 const files = await list();
@@ -47,9 +42,7 @@ rl.on('line', (input) => {
                 console.error(err);
             }
         })();   
-    }
-
-    if (input.startsWith('rm ')) {
+    } else if (input.startsWith('rm ')) {
         (async () => {
             try {
                 const whatToDelete = input.split(' ')[1];
@@ -61,20 +54,14 @@ rl.on('line', (input) => {
                 console.error(err);
             }
         })();   
-    }
-
-    if (input.startsWith('cat ')) {
+    } else if (input.startsWith('cat ')) {
         const whatToRead = input.split(' ')[1];
         const whereToWrite = input.split(' ')[2];
         read(whatToRead, whereToWrite);
-    }
-
-    if (input.startsWith('add ')) {
+    } else if (input.startsWith('add ')) {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
-    }
-
-    if (input.startsWith('cp ')) {
+    } else if (input.startsWith('cp ')) {
         
         (async () => {
             try {
@@ -88,9 +75,7 @@ rl.on('line', (input) => {
             }
         })();   
         
-    }
-
-    if (input.startsWith('mv ')) {
+    } else if (input.startsWith('mv ')) {
         (async () => {
             try {
                 const whatToCreate = input.split(' ')[1];
@@ -103,9 +88,7 @@ rl.on('line', (input) => {
                 console.error(err);
             }
         })(); 
-    }
-
-    if (input.startsWith('rn ')) {
+    } else if (input.startsWith('rn ')) {
         (async () => {
             try {
                 const whatToRename = input.split(' ')[1];
