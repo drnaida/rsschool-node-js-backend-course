@@ -6,10 +6,8 @@ import { create } from './createFile.js';
 import { rename } from './renameFile.js';
 import { remove } from './deleteFile.js';
 import { copy } from './copyFile.js';
-import { move } from './moveFile.js';
 import readline from 'readline';
 import process from 'process';
-import { copyFile } from 'fs';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
 
 const rl = readline.createInterface({
@@ -93,9 +91,18 @@ rl.on('line', (input) => {
     }
 
     if (input.startsWith('mv ')) {
-        const whatToCreate = input.split(' ')[1];
-        const whereToCopy = input.split(' ')[2];
-        move(whatToCreate, whereToCopy);
+        (async () => {
+            try {
+                const whatToCreate = input.split(' ')[1];
+                const whereToCopy = input.split(' ')[2];
+                const write = await copy(whatToCreate, whereToCopy);
+                const answer = await remove(whatToCreate);
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })(); 
     }
 
     if (input.startsWith('rn ')) {

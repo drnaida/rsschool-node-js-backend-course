@@ -1,5 +1,4 @@
 import fs from 'fs';
-import process from 'process';
 export const copy = async (whatToRead, whereToCopy) => {
     const fileName = whatToRead.split('\\').slice(-1)[0] ;
     const whereToWrite = `${whereToCopy}/${fileName}`;
