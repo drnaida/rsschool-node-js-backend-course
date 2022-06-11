@@ -5,8 +5,10 @@ import { read } from './readFile.js';
 import { create } from './createFile.js';
 import { rename } from './renameFile.js';
 import { remove } from './deleteFile.js';
+import { copy } from './copyFile.js';
 import readline from 'readline';
 import process from 'process';
+import { copyFile } from 'fs';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
 
 const rl = readline.createInterface({
@@ -64,12 +66,19 @@ rl.on('line', (input) => {
 
     if (input.startsWith('cat ')) {
         const whatToRead = input.split(' ')[1];
-        read(whatToRead);
+        const whereToWrite = input.split(' ')[2];
+        read(whatToRead, whereToWrite);
     }
 
     if (input.startsWith('add ')) {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
+    }
+
+    if (input.startsWith('cp ')) {
+        const whatToCreate = input.split(' ')[1];
+        const whereToCopy = input.split(' ')[2];
+        copy(whatToCreate, whereToCopy);
     }
 
     if (input.startsWith('rn ')) {
@@ -87,7 +96,7 @@ rl.on('line', (input) => {
         })();   
     } else {
         let currDir = process.cwd();
-        console.log(`You are currently in ${currDir}`);
+        console.log(`You are sdfds currently in ${currDir}`);
     }
     
 });
