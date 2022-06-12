@@ -8,6 +8,8 @@ import { remove } from './deleteFile.js';
 import { copy } from './copyFile.js';
 import {osCommands} from './osCommands.js';
 import {calculateHash} from './calcHash.js';
+import {compressBrotli} from './compressBrotli.js';
+import {decompressBrotli} from './decompressBrotli.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -123,6 +125,26 @@ rl.on('line', (input) => {
                 console.log(hash);
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
+            } catch (err) {
+                console.error(err);
+            }
+        })(); 
+    } else if (input.startsWith('compress ')) {
+        (async () => {
+            try {
+                const pathToFile = input.split(' ')[1];
+                const pathToDestination = input.split(' ')[2];
+                const compress = await compressBrotli(pathToFile, pathToDestination);
+            } catch (err) {
+                console.error(err);
+            }
+        })(); 
+    } else if (input.startsWith('decompress ')) {
+        (async () => {
+            try {
+                const pathToFile = input.split(' ')[1];
+                const pathToDestination = input.split(' ')[2];
+                const compress = await decompressBrotli(pathToFile, pathToDestination);
             } catch (err) {
                 console.error(err);
             }
