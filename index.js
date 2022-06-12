@@ -74,8 +74,14 @@ rl.on('line', (input) => {
             read(whatToRead);
         }
     } else if (input.startsWith('add ')) {
-        const whatToCreate = input.split(' ')[1];
-        create(whatToCreate);
+        if (input.split(' ').length > 2) {
+            console.log('Operation failed')
+            let currDir = process.cwd();
+            console.log(`You are currently in ${currDir}`);
+        } else {
+            const whatToCreate = input.split(' ')[1];
+            create(whatToCreate);
+        }
     } else if (input.startsWith('cp ')) {
         
         (async () => {
@@ -106,14 +112,22 @@ rl.on('line', (input) => {
     } else if (input.startsWith('rn ')) {
         (async () => {
             try {
-                const whatToRename = input.split(' ')[1];
-                const howToRename = input.split(' ')[2];
-                const renameFile = await rename(whatToRename, howToRename);
-                console.log(renameFile);
+                if (input.split(' ').length > 3) {
+                    console.log('Operation failed')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const whatToRename = input.split(' ')[1];
+                    const howToRename = input.split(' ')[2];
+                    const renameFile = await rename(whatToRename, howToRename);
+                    console.log(renameFile);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
+            } catch (err) {
+                console.log('Operation failed');
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
-            } catch (err) {
-                console.error(err);
             }
         })();   
     } else if (input.startsWith('os ')) {
