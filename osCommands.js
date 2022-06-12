@@ -5,7 +5,7 @@ export const osCommands = async (parameter) => {
             try {
                 resolve(JSON.stringify(os.EOL));
             } catch(err) {
-                reject(err);
+                reject('Operation failed');
             }
         })
     } else if (parameter == '--cpus') {
@@ -21,7 +21,7 @@ export const osCommands = async (parameter) => {
                 }
                 resolve(answer);
             } catch(err) {
-                reject(err);
+                reject('Operation failed');
             }
         })
     } else if (parameter == '--homedir') {
@@ -29,7 +29,7 @@ export const osCommands = async (parameter) => {
             try {
                 resolve(os.homedir());
             } catch(err) {
-                reject(err);
+                reject('Operation failed');
             }
         })
     } else if (parameter == '--username') {
@@ -37,7 +37,7 @@ export const osCommands = async (parameter) => {
             try {
                 resolve(os.userInfo().username);
             } catch(err) {
-                reject(err);
+                reject('Operation failed');
             }
         })
     } else if (parameter == '--architecture') {
@@ -45,10 +45,16 @@ export const osCommands = async (parameter) => {
             try {
                 resolve(process.arch);
             } catch(err) {
-                reject(err);
+                reject('Operation failed');
             }
         })
     } else {
-        console.log('Error');
+        return new Promise((resolve, reject) => {
+            try {
+                resolve('Invalid input');
+            } catch(err) {
+                resolve('Invalid input');
+            }
+        })
     }
 };

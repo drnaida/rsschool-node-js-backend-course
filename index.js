@@ -32,7 +32,7 @@ rl.on('line', (input) => {
         console.log(`You are currently in ${currDir}`);
     } else if (input.startsWith('cd ')) {
         if (input.split(' ').length > 2) {
-            console.log('Operation failed');
+            console.log('Invalid input');
             let currDir = process.cwd();
             console.log(`You are currently in ${currDir}`);
         } else {
@@ -58,7 +58,7 @@ rl.on('line', (input) => {
         (async () => {
             try {
                 if (input.split(' ').length > 2) {
-                    console.log('Operation failed')
+                    console.log('Invalid input')
                     let currDir = process.cwd();
                     console.log(`You are currently in ${currDir}`);
                 } else {
@@ -77,7 +77,7 @@ rl.on('line', (input) => {
         })();   
     } else if (input.startsWith('cat ')) {
         if (input.split(' ').length > 2) {
-            console.log('Operation failed')
+            console.log('Invalid input')
             let currDir = process.cwd();
             console.log(`You are currently in ${currDir}`);
         } else {
@@ -86,7 +86,7 @@ rl.on('line', (input) => {
         }
     } else if (input.startsWith('add ')) {
         if (input.split(' ').length > 2) {
-            console.log('Operation failed')
+            console.log('Invalid input')
             let currDir = process.cwd();
             console.log(`You are currently in ${currDir}`);
         } else {
@@ -98,7 +98,7 @@ rl.on('line', (input) => {
         (async () => {
             try {
                 if (input.split(' ').length > 3) {
-                    console.log('Operation failed')
+                    console.log('Invalid input')
                     let currDir = process.cwd();
                     console.log(`You are currently in ${currDir}`);
                 } else {
@@ -119,7 +119,7 @@ rl.on('line', (input) => {
         (async () => {
             try {
                 if (input.split(' ').length > 3) {
-                    console.log('Operation failed')
+                    console.log('Invalid input')
                     let currDir = process.cwd();
                     console.log(`You are currently in ${currDir}`);
                 } else {
@@ -140,7 +140,7 @@ rl.on('line', (input) => {
         (async () => {
             try {
                 if (input.split(' ').length > 3) {
-                    console.log('Operation failed')
+                    console.log('Invalid input')
                     let currDir = process.cwd();
                     console.log(`You are currently in ${currDir}`);
                 } else {
@@ -160,13 +160,19 @@ rl.on('line', (input) => {
     } else if (input.startsWith('os ')) {
         (async () => {
             try {
-                const parameter = input.split(' ')[1];
-                const osCommand = await osCommands(parameter);
-                console.log(osCommand);
-                let currDir = process.cwd();
-                console.log(`You are currently in ${currDir}`);
+                if (input.split(' ').length > 2) {
+                    console.log('Invalid input')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const parameter = input.split(' ')[1];
+                    const osCommand = await osCommands(parameter);
+                    console.log(osCommand);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
             } catch (err) {
-                console.error(err);
+                console.error('Operation failed');
             }
         })(); 
     } else if (input.startsWith('hash ')) {
