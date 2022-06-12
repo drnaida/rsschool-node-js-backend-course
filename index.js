@@ -33,7 +33,7 @@ rl.on('line', (command) => {
         changeDirectory('up');
         currIn();
     } else if (input.startsWith('cd ')) {
-        const the_path = input.slice(3).replace(/"/g, '');;
+        const the_path = input.slice(3).replace(/"/g, '').replace(/'/g, '');;
         changeDirectory(the_path);
         currIn();
     } else if (input == 'ls') {
