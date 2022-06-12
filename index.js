@@ -33,13 +33,9 @@ rl.on('line', (command) => {
         changeDirectory('up');
         currIn();
     } else if (input.startsWith('cd ')) {
-        if (input.split(' ').length > 2) {
-            printInvalid();
-        } else {
-            const whereTo = input.split(' ')[1];
-            changeDirectory(whereTo);
-            currIn();
-        }
+        const the_path = input.slice(3).replace(/"/g, '');;
+        changeDirectory(the_path);
+        currIn();
     } else if (input == 'ls') {
         (async () => {
             try {
