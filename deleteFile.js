@@ -5,7 +5,7 @@ export const remove = async (whatToDelete) => {
     return new Promise((resolve, reject) => {
         fs.unlink(the_path, (err) => {
             if (err) {
-                reject(err);
+                reject('Operation failed');
             } else {
                 resolve('File succesfully deleted');
             }

@@ -57,13 +57,22 @@ rl.on('line', (input) => {
     } else if (input.startsWith('rm ')) {
         (async () => {
             try {
-                const whatToDelete = input.split(' ')[1];
-                const answer = await remove(whatToDelete);
-                console.log(answer);
+                if (input.split(' ').length > 2) {
+                    console.log('Operation failed')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const whatToDelete = input.split(' ')[1];
+                    const answer = await remove(whatToDelete);
+                    console.log(answer);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
+                
+            } catch (err) {
+                console.log('Operation failed')
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
-            } catch (err) {
-                console.error(err);
             }
         })();   
     } else if (input.startsWith('cat ')) {
@@ -109,14 +118,22 @@ rl.on('line', (input) => {
     } else if (input.startsWith('mv ')) {
         (async () => {
             try {
-                const whatToCreate = input.split(' ')[1];
-                const whereToCopy = input.split(' ')[2];
-                const write = await copy(whatToCreate, whereToCopy);
-                const answer = await remove(whatToCreate);
+                if (input.split(' ').length > 3) {
+                    console.log('Operation failed')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const whatToCreate = input.split(' ')[1];
+                    const whereToCopy = input.split(' ')[2];
+                    const write = await copy(whatToCreate, whereToCopy);
+                    const answer = await remove(whatToCreate);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
+            } catch (err) {
+                console.log('Operation failed')
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
-            } catch (err) {
-                console.error(err);
             }
         })(); 
     } else if (input.startsWith('rn ')) {
