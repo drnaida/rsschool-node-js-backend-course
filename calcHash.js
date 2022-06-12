@@ -6,7 +6,7 @@ export const calculateHash = async (pathToFile) => {
     return new Promise((resolve, reject) => {
         const hash = crypto.createHash('sha256');
         const stream = fs.createReadStream(the_path);
-        stream.on('error', err => reject(err));
+        stream.on('error', err => reject('Operation failed'));
         stream.on('data', chunk => hash.update(chunk));
         stream.on('end', () => resolve(hash.digest('hex')));
     });

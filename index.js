@@ -173,28 +173,46 @@ rl.on('line', (input) => {
                 }
             } catch (err) {
                 console.error('Operation failed');
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
             }
         })(); 
     } else if (input.startsWith('hash ')) {
         (async () => {
             try {
-                const pathToFile = input.split(' ')[1];
-                const hash = await calculateHash(pathToFile);
-                console.log(hash);
+                if (input.split(' ').length > 2) {
+                    console.log('Invalid input')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const pathToFile = input.split(' ')[1];
+                    const hash = await calculateHash(pathToFile);
+                    console.log(hash);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
+            } catch (err) {
+                console.error('Operation failed');
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
-            } catch (err) {
-                console.error(err);
             }
         })(); 
     } else if (input.startsWith('compress ')) {
         (async () => {
             try {
-                const pathToFile = input.split(' ')[1];
-                const pathToDestination = input.split(' ')[2];
-                const compress = await compressBrotli(pathToFile, pathToDestination);
+                if (input.split(' ').length > 3) {
+                    console.log('Invalid input')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const pathToFile = input.split(' ')[1];
+                    const pathToDestination = input.split(' ')[2];
+                    const compress = await compressBrotli(pathToFile, pathToDestination);
+                }
             } catch (err) {
-                console.error(err);
+                console.log('Operation failed')
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
             }
         })(); 
     } else if (input.startsWith('decompress ')) {
