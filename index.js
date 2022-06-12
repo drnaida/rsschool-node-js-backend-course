@@ -49,7 +49,9 @@ rl.on('line', (input) => {
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
             } catch (err) {
-                console.error(err);
+                console.log('Operation failed')
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
             }
         })();   
     } else if (input.startsWith('rm ')) {
@@ -86,13 +88,21 @@ rl.on('line', (input) => {
         
         (async () => {
             try {
-                const whatToCreate = input.split(' ')[1];
-                const whereToCopy = input.split(' ')[2];
-                const write = await copy(whatToCreate, whereToCopy);
+                if (input.split(' ').length > 3) {
+                    console.log('Operation failed')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const whatToCreate = input.split(' ')[1];
+                    const whereToCopy = input.split(' ')[2];
+                    const write = await copy(whatToCreate, whereToCopy);
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                }
+            } catch (err) {
+                console.log('Operation failed')
                 let currDir = process.cwd();
                 console.log(`You are currently in ${currDir}`);
-            } catch (err) {
-                console.error(err);
             }
         })();   
         
