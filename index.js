@@ -218,11 +218,19 @@ rl.on('line', (input) => {
     } else if (input.startsWith('decompress ')) {
         (async () => {
             try {
-                const pathToFile = input.split(' ')[1];
-                const pathToDestination = input.split(' ')[2];
-                const compress = await decompressBrotli(pathToFile, pathToDestination);
+                if (input.split(' ').length > 3) {
+                    console.log('Invalid input')
+                    let currDir = process.cwd();
+                    console.log(`You are currently in ${currDir}`);
+                } else {
+                    const pathToFile = input.split(' ')[1];
+                    const pathToDestination = input.split(' ')[2];
+                    const compress = await decompressBrotli(pathToFile, pathToDestination);
+                }
             } catch (err) {
-                console.error(err);
+                console.log('Operation failed')
+                let currDir = process.cwd();
+                console.log(`You are currently in ${currDir}`);
             }
         })(); 
     } else {
