@@ -22,7 +22,8 @@ console.log(`Welcome! to the File Manager, ${usernameProvidedByUser}!`)
 setHomeDirectory();
 let currDir = process.cwd();
 console.log(`You are currently in ${currDir}`);
-rl.on('line', (input) => {
+rl.on('line', (command) => {
+    const input = command.trim()
     if (input == '.exit') {
         console.log(`Thank you for using File Manager, ${usernameProvidedByUser}!`);
         rl.close();
