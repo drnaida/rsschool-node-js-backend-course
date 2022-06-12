@@ -141,6 +141,7 @@ rl.on('line', (command) => {
                     currIn();
                 }
             } catch (err) {
+                console.log(err);
                 printFailed();
             }
         })(); 

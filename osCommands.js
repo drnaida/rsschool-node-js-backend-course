@@ -17,11 +17,21 @@ export const osCommands = async (parameter) => {
             try {
                 answer['Amount of CPUS'] = os.cpus().length;
                 for (let i of os.cpus()) {
-                    answer['models and clock rates'].push(i.model);
+                    let initialSpeed = i.speed;
+                    while (initialSpeed > 10) {
+                        initialSpeed /= 10;
+                    }
+                    initialSpeed = Math.round(100 * initialSpeed) / 100;
+                    answer['models and clock rates'].push(
+                        {
+                            'model': i.model,
+                            'speed': initialSpeed
+                        }
+                    );
                 }
                 resolve(answer);
             } catch(err) {
-                reject('Operation failed');
+                reject(err);
             }
         })
     } else if (parameter == '--homedir') {
