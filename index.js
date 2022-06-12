@@ -13,6 +13,7 @@ import {decompressBrotli} from './decompressBrotli.js';
 import {printInvalid} from './printInvalidInput.js';
 import {printFailed} from './printOperationFailed.js';
 import {currIn} from './youAreCurrentlyIn.js';
+import {parseArguments} from './parseArguments.js';
 import readline from 'readline';
 import process from 'process';
 const usernameProvidedByUser = process.argv[2].split('=')[1];
@@ -25,7 +26,9 @@ console.log(`Welcome! to the File Manager, ${usernameProvidedByUser}!`)
 setHomeDirectory();
 currIn();
 rl.on('line', (command) => {
-    const input = command.trim()
+    const input = command.trim();
+    const args = parseArguments(command.trim());
+    console.log(args);
     if (input == '.exit') {
         console.log(`Thank you for using File Manager, ${usernameProvidedByUser}!`);
         rl.close();
@@ -33,10 +36,10 @@ rl.on('line', (command) => {
         changeDirectory('up');
         currIn();
     } else if (input.startsWith('cd ')) {
-        if (input.split(' ').length > 2) {
+        if (args.length > 1) {
             printInvalid();
         } else {
-            const whereTo = input.split(' ')[1];
+            const whereTo = args[0];
             changeDirectory(whereTo);
             currIn();
         }
@@ -53,10 +56,10 @@ rl.on('line', (command) => {
     } else if (input.startsWith('rm ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 2) {
+                if (args.length > 1) {
                     printInvalid();
                 } else {
-                    const whatToDelete = input.split(' ')[1];
+                    const whatToDelete = args[0];
                     const answer = await remove(whatToDelete);
                     console.log(answer);
                     currIn();
@@ -67,28 +70,28 @@ rl.on('line', (command) => {
             }
         })();   
     } else if (input.startsWith('cat ')) {
-        if (input.split(' ').length > 2) {
+        if (args.length > 1) {
             printInvalid();
         } else {
-            const whatToRead = input.split(' ')[1];
+            const whatToRead = args[0];
             read(whatToRead);
         }
     } else if (input.startsWith('add ')) {
-        if (input.split(' ').length > 2) {
+        if (args.length > 1) {
             printInvalid();
         } else {
-            const whatToCreate = input.split(' ')[1];
+            const whatToCreate = args[0];
             create(whatToCreate);
         }
     } else if (input.startsWith('cp ')) {
         
         (async () => {
             try {
-                if (input.split(' ').length > 3) {
+                if (args.length > 2) {
                     printInvalid();
                 } else {
-                    const whatToCreate = input.split(' ')[1];
-                    const whereToCopy = input.split(' ')[2];
+                    const whatToCreate = args[0];
+                    const whereToCopy = args[1];
                     const write = await copy(whatToCreate, whereToCopy);
                     currIn();
                 }
@@ -100,11 +103,11 @@ rl.on('line', (command) => {
     } else if (input.startsWith('mv ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 3) {
+                if (args.length > 2) {
                     printInvalid();
                 } else {
-                    const whatToCreate = input.split(' ')[1];
-                    const whereToCopy = input.split(' ')[2];
+                    const whatToCreate = args[0];
+                    const whereToCopy = args[1];
                     const write = await copy(whatToCreate, whereToCopy);
                     const answer = await remove(whatToCreate);
                     currIn();
@@ -116,11 +119,11 @@ rl.on('line', (command) => {
     } else if (input.startsWith('rn ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 3) {
+                if (args.length > 2) {
                     printInvalid();
                 } else {
-                    const whatToRename = input.split(' ')[1];
-                    const howToRename = input.split(' ')[2];
+                    const whatToRename = args[0];
+                    const howToRename = args[1];
                     const renameFile = await rename(whatToRename, howToRename);
                     console.log(renameFile);
                     currIn();
@@ -132,10 +135,10 @@ rl.on('line', (command) => {
     } else if (input.startsWith('os ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 2) {
+                if (args.length > 1) {
                     printInvalid();
                 } else {
-                    const parameter = input.split(' ')[1];
+                    const parameter = args[0];
                     const osCommand = await osCommands(parameter);
                     console.log(osCommand);
                     currIn();
@@ -148,10 +151,10 @@ rl.on('line', (command) => {
     } else if (input.startsWith('hash ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 2) {
+                if (args.length > 1) {
                     printInvalid();
                 } else {
-                    const pathToFile = input.split(' ')[1];
+                    const pathToFile = args[0];
                     const hash = await calculateHash(pathToFile);
                     console.log(hash);
                     currIn();
@@ -163,11 +166,11 @@ rl.on('line', (command) => {
     } else if (input.startsWith('compress ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 3) {
+                if (args.length > 2) {
                     printInvalid();
                 } else {
-                    const pathToFile = input.split(' ')[1];
-                    const pathToDestination = input.split(' ')[2];
+                    const pathToFile = args[0];
+                    const pathToDestination = args[1];
                     const compress = await compressBrotli(pathToFile, pathToDestination);
                 }
             } catch (err) {
@@ -177,11 +180,11 @@ rl.on('line', (command) => {
     } else if (input.startsWith('decompress ')) {
         (async () => {
             try {
-                if (input.split(' ').length > 3) {
+                if (args.length > 2) {
                     printInvalid();
                 } else {
-                    const pathToFile = input.split(' ')[1];
-                    const pathToDestination = input.split(' ')[2];
+                    const pathToFile = args[0];
+                    const pathToDestination = args[1];
                     const compress = await decompressBrotli(pathToFile, pathToDestination);
                 }
             } catch (err) {
