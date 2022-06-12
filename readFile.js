@@ -7,6 +7,9 @@ export const read = async (whatToRead) => {
     content.on("data", (chunk) => {
         console.log(chunk);
     });
+    content.on('error', () => {
+        console.log('Operation failed');
+    })
     content.on('close', () => {
         let currDir = process.cwd();
         console.log(`You are currently in ${currDir}`);

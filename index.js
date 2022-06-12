@@ -31,10 +31,16 @@ rl.on('line', (input) => {
         let currDir = process.cwd();
         console.log(`You are currently in ${currDir}`);
     } else if (input.startsWith('cd ')) {
-        const whereTo = input.split(' ')[1];
-        changeDirectory(whereTo);
-        let currDir = process.cwd();
-        console.log(`You are currently in ${currDir}`);
+        if (input.split(' ').length > 2) {
+            console.log('Operation failed');
+            let currDir = process.cwd();
+            console.log(`You are currently in ${currDir}`);
+        } else {
+            const whereTo = input.split(' ')[1];
+            changeDirectory(whereTo);
+            let currDir = process.cwd();
+            console.log(`You are currently in ${currDir}`);
+        }
     } else if (input == 'ls') {
         (async () => {
             try {
@@ -59,9 +65,14 @@ rl.on('line', (input) => {
             }
         })();   
     } else if (input.startsWith('cat ')) {
-        const whatToRead = input.split(' ')[1];
-        const whereToWrite = input.split(' ')[2];
-        read(whatToRead, whereToWrite);
+        if (input.split(' ').length > 2) {
+            console.log('Operation failed')
+            let currDir = process.cwd();
+            console.log(`You are currently in ${currDir}`);
+        } else {
+            const whatToRead = input.split(' ')[1];
+            read(whatToRead);
+        }
     } else if (input.startsWith('add ')) {
         const whatToCreate = input.split(' ')[1];
         create(whatToCreate);
@@ -151,7 +162,8 @@ rl.on('line', (input) => {
         })(); 
     } else {
         let currDir = process.cwd();
-        console.log(`You are sdfds currently in ${currDir}`);
+        console.log('Invalid input');
+        console.log(`You are currently in ${currDir}`);
     }
     
 });

@@ -9,7 +9,7 @@ export const changeDirectory = async (whereToGo) => {
   const currDir = process.cwd();
   if (whereToGo == 'up') {
     if (currDir == userHomeDir) {
-      console.log('You cannot go higher than the home directory');
+      console.log('You cannot go higher than the root directory');
     } else {
       process.chdir('../');
     }
@@ -18,7 +18,5 @@ export const changeDirectory = async (whereToGo) => {
     process.chdir(whereToGo);
   }
 } catch (err) {
-     
-  // Printing error if occurs
-  console.error(err);
+  console.error('Operation failed');
 }}
