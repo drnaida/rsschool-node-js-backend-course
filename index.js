@@ -28,7 +28,6 @@ currIn();
 rl.on('line', (command) => {
     const input = command.trim();
     const args = parseArguments(command.trim());
-    console.log(args);
     if (input == '.exit') {
         console.log(`Thank you for using File Manager, ${usernameProvidedByUser}!`);
         rl.close();

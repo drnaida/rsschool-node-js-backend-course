@@ -3,8 +3,10 @@ export const parseArguments = (line) => {
     let ars = rest.join(' ');
     let result = ars.split(' ');
     if (ars.includes('"')) {
-        result = ars.split('"').filter((el) => {
-            return el !== '';
+        result = ars.split('"').map(element => {
+            return element.trim();
+          }).filter((el) => {
+            return el !== '' && el !== ' ';
         });
     }
     return result;
