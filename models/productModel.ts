@@ -1,3 +1,6 @@
+import {v4 as uuid4} from 'uuid';
+import { getProducts } from '../controllers/productController';
+
 const users = [
 {
     id: '1',
@@ -24,7 +27,16 @@ function findById(id: string) {
     })
 }
 
+function create(product) {
+    return new Promise((resolve, reject) => {
+        const newProduct = {id: uuid4(), ...product};
+        users.push(newProduct);
+        resolve(newProduct);
+    })
+}
+
 export {
     findAll,
-    findById
+    findById,
+    create
 }

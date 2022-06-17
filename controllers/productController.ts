@@ -1,4 +1,4 @@
-import {findAll, findById} from '../models/productModel';
+import {findAll, findById, create} from '../models/productModel';
 
 // Gets all products GET /api/products
 async function getProducts(req, res) {
@@ -32,7 +32,27 @@ async function getProduct(req, res, id: string) {
     }
 }
 
+//Create single product
+//POST /api/products
+async function createProduct(req, res) {
+    try {
+        const product = {
+            title: 'Test product',
+            description: 'This is my product',
+            price: 100
+        }
+
+        const newProduct = await create(product);
+        res.writeHead(201, {'Content-Type': 'application/json'});
+        return res.end(JSON.stringify(newProduct));
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     getProducts,
-    getProduct
+    getProduct,
+    createProduct
 }
