@@ -1,4 +1,5 @@
-import {findAll, findById, create} from '../models/productModel';
+import { profileEnd } from 'console';
+import {findAll, findById, create, update} from '../models/productModel';
 
 // Gets all products GET /api/products
 async function getProducts(req, res) {
@@ -59,9 +60,48 @@ async function createProduct(req, res) {
         console.log(error);
     }
 }
+// PUT /api/products/:id
+async function updateProduct(req, res, id) {
+    try {
+        type User = {
+            username: string,
+            age: number,
+            hobbies: string[]
+        }
+        const product = await findById(id);
+        console.log(typeof(product));
+        if (!product) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify({message: 'Product not found'}));
+            res.end();
+        } else {
+            let body = '';
+            req.on('data', (chunk) => {
+                body += chunk.toString();
+            })
+
+            req.on('end', async () => {
+               
+                const { username, age, hobbies } = JSON.parse(body);
+                const productData: User = {
+                    username: username || product.username,
+                    age: age || product.age,
+                    hobbies: hobbies || product.hobbies
+                }
+                const updProduct = await update(id, productData);
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                return res.end(JSON.stringify(updProduct));
+            });
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export {
     getProducts,
     getProduct,
-    createProduct
+    createProduct,
+    updateProduct
 }

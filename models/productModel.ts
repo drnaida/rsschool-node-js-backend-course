@@ -1,15 +1,19 @@
 import {v4 as uuid4} from 'uuid';
 import { getProducts } from '../controllers/productController';
 
-const users = [
-{
-    id: '1',
-    description: 'sfsdfds'
-},
-{
-    id: '2',
-    description: 'asaasasa'
+export interface User {
+    id: string | typeof uuid4;
+    username: string,
+    age: number,
+    hobbies: string[]
 }
+
+const users = [
+    {   "id": '1',
+        "username": "DRNaida",
+        "age": 18,
+        "hobbies": ["programming", "skating"]
+    }
 ];
 
 function findAll() {
@@ -19,11 +23,16 @@ function findAll() {
 }
 
 function findById(id: string) {
-    return new Promise((resolve, reject) => {
-        console.log(users);
-        const product = users.find((p) => p.id === id);
-        console.log(product);
-        resolve(product);
+    return new Promise<User>((resolve, reject) => {
+        try {
+            const product = users.find((p) => p.id === id) || '';
+            if (product) {
+                resolve(product);
+            }
+        } catch (error) {
+            reject(error);
+        }
+        
     })
 }
 
@@ -35,8 +44,17 @@ function create(product) {
     })
 }
 
+function update(id, product) {
+    return new Promise((resolve, reject) => {
+        const index = users.findIndex((p) => p.id === id);
+        users[index] = {id, ...product};
+        resolve(users[index]);
+    })
+}
+
 export {
     findAll,
     findById,
-    create
+    create,
+    update
 }
