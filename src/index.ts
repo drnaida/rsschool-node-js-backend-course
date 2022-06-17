@@ -1,11 +1,14 @@
 import 'dotenv/config';
 import * as http from 'http';
-import * as products from '../products.json';
+import { getProducts } from '../controllers/productController';
 const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify(products));
-    res.end();
+    if (req.url === '/api/products'  && req.method === 'GET') {
+        getProducts(req, res);
+    } else {
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Route not found'}));
+        res.end();
+    }
 });
 
 const PORT = process.env.PORT || 5000;
