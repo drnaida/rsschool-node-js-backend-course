@@ -1,5 +1,5 @@
 import { profileEnd } from 'console';
-import {findAll, findById, create, update} from '../models/productModel';
+import {findAll, findById, create, update, remove} from '../models/productModel';
 
 // Gets all products GET /api/products
 async function getProducts(req, res) {
@@ -99,9 +99,32 @@ async function updateProduct(req, res, id) {
     }
 }
 
+//Delete single products
+//DELETE /api/products/:id
+async function deleteProduct(req, res, id: string) {
+    try {
+        const product = await findById(id);
+
+        if (!product) {
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify({message: 'Product not found'}));
+            res.end();
+        } else {
+            await remove(id);
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify({message: `Product ${id} removed`}));
+            res.end();
+        }
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     getProducts,
     getProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }

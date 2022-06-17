@@ -8,7 +8,7 @@ export interface User {
     hobbies: string[]
 }
 
-const users = [
+let users = [
     {   "id": '1',
         "username": "DRNaida",
         "age": 18,
@@ -52,9 +52,18 @@ function update(id, product) {
     })
 }
 
+function remove(id) {
+    return new Promise((resolve, reject) => {
+        users = users.filter((p) => p.id != id); 
+        resolve('');
+    })
+}
+
+
 export {
     findAll,
     findById,
     create,
-    update
+    update,
+    remove
 }
