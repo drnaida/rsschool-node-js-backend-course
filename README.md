@@ -1,9 +1,8 @@
-Example of body in POST
-{
-    "username": "DRNaida",
-    "age": 18,
-    "hobbies": ["programming", "skating"]
-}
+**commands**
+
+npm run start:dev - developement
+npm run startd:prod - build
+npm run test - tests
 
 **GET request**
 About validating while getting users
@@ -29,6 +28,12 @@ If you type in POSTMAN POST request like this
 with "surname" element that is not supposed to be, all of the data but 
 surname will be written to storage and "surname" will be ignored.
 
+Example of body in POST
+{
+    "username": "DRNaida",
+    "age": 18,
+    "hobbies": ["programming", "skating"]
+}
 
 **PUT request**
 To underline, it is a PUT request, not a PATCH request, so please
