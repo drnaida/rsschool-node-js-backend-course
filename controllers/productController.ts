@@ -1,6 +1,6 @@
 import { profileEnd } from 'console';
 import {findAll, findById, create, update, remove} from '../models/productModel';
-
+import {checkDataForCreateFunction} from '../utils';
 // Gets all products GET /api/products
 async function getProducts(req, res) {
     try {
@@ -58,16 +58,27 @@ async function createProduct(req, res) {
         })
 
         req.on('end', async () => {
-            console.log(JSON.parse(body));
             const { username, age, hobbies } = JSON.parse(body);
-            const product = {
-                username,
-                age,
-                hobbies
+            const neededTypes = checkDataForCreateFunction(username, age, hobbies);
+            if (neededTypes) {
+                type User = {
+                    username: string,
+                    age: number,
+                    hobbies: string[]
+                }
+                const product: User = {
+                    username,
+                    age,
+                    hobbies
+                }
+                const newProduct = await create(product);
+                res.writeHead(201, {'Content-Type': 'application/json'});
+                return res.end(JSON.stringify(newProduct));
+            } else {
+                res.writeHead(400, {'Content-Type': 'application/json'});
+                return res.end(JSON.stringify({message: 'incorrect data for new user'}));
             }
-            const newProduct = await create(product);
-            res.writeHead(201, {'Content-Type': 'application/json'});
-            return res.end(JSON.stringify(newProduct));
+            
         });
         
     } catch (error) {
