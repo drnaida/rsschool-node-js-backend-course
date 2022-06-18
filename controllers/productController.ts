@@ -16,20 +16,34 @@ async function getProducts(req, res) {
 //Get single products
 async function getProduct(req, res, id: string) {
     try {
-        const product = await findById(id);
 
-        if (!product) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({message: 'Product not found'}));
-            res.end();
+        const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+        if (regexExp.test(id)) {
+            const product = await findById(id);
+            console.log('dsfsd' + product);
+            if (!product) {
+                console.log('404');
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({message: 'Product not found'}));
+                res.end();
+            } else {
+                res.writeHead(200, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({product}));
+                res.end();
+            }
         } else {
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({product}));
+            console.log('400');
+            res.writeHead(400, {'Content-Type': 'text/html'});
+            res.write(JSON.stringify({message: 'Invalid uuid'}));
             res.end();
         }
         
     } catch (error) {
         console.log(error);
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'User not found'}));
+        res.end();
     }
 }
 
@@ -72,7 +86,7 @@ async function updateProduct(req, res, id) {
         console.log(typeof(product));
         if (!product) {
             res.writeHead(404, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({message: 'Product not found'}));
+            res.write(JSON.stringify({message: 'User not found'}));
             res.end();
         } else {
             let body = '';
