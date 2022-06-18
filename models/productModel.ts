@@ -9,11 +9,7 @@ export interface User {
 }
 
 let users = [
-    {   "id": '1',
-        "username": "DRNaida",
-        "age": 18,
-        "hobbies": ["programming", "skating"]
-    }
+    
 ];
 
 function findAll() {
@@ -25,10 +21,18 @@ function findAll() {
 function findById(id: string) {
     return new Promise<User>((resolve, reject) => {
         try {
-            const product = users.find((p) => p.id === id) || '';
-            if (product) {
-                resolve(product);
+            const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+            regexExp.test(id);
+            if (id) {
+                const product = users.find((p) => p.id === id) || '';
+                if (product) {
+                    resolve(product);
+                }
+            } else {
+                resolve('invalid');
             }
+            
         } catch (error) {
             reject(error);
         }
