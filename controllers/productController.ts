@@ -142,21 +142,31 @@ async function updateProduct(req, res, id) {
 //DELETE /api/products/:id
 async function deleteProduct(req, res, id: string) {
     try {
-        const product = await findById(id);
+        if (checkThatThisIsUUID4(id)) {
+            const product = await findById(id);
 
-        if (!product) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({message: 'Product not found'}));
-            res.end();
+            if (!product) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({message: 'Product not found'}));
+                res.end();
+            } else {
+                await remove(id);
+                res.writeHead(204, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({message: `Product ${id} removed`}));
+                res.end();
+            }
         } else {
-            await remove(id);
-            res.writeHead(200, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({message: `Product ${id} removed`}));
+            console.log('400');
+            res.writeHead(400, {'Content-Type': 'text/html'});
+            res.write(JSON.stringify({message: 'Not an uuid '}));
             res.end();
         }
         
+        
     } catch (error) {
-        console.log(error);
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'User not found'}));
+        res.end();
     }
 }
 
