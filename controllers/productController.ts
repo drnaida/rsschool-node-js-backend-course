@@ -1,6 +1,6 @@
 import { profileEnd } from 'console';
 import {findAll, findById, create, update, remove} from '../models/productModel';
-import {checkDataForCreateFunction} from '../utils';
+import {checkDataForCreateFunction, checkThatThisIsUUID4} from '../utils';
 // Gets all products GET /api/products
 async function getProducts(req, res) {
     try {
@@ -17,9 +17,7 @@ async function getProducts(req, res) {
 async function getProduct(req, res, id: string) {
     try {
 
-        const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
-
-        if (regexExp.test(id)) {
+        if (checkThatThisIsUUID4(id)) {
             const product = await findById(id);
             console.log('dsfsd' + product);
             if (!product) {
@@ -35,7 +33,7 @@ async function getProduct(req, res, id: string) {
         } else {
             console.log('400');
             res.writeHead(400, {'Content-Type': 'text/html'});
-            res.write(JSON.stringify({message: 'Invalid uuid'}));
+            res.write(JSON.stringify({message: 'Not an uuid'}));
             res.end();
         }
         
@@ -93,40 +91,50 @@ async function updateProduct(req, res, id) {
             age: number,
             hobbies: string[]
         }
-        const product = await findById(id);
-        console.log(typeof(product));
-        if (!product) {
-            res.writeHead(404, {'Content-Type': 'application/json'});
-            res.write(JSON.stringify({message: 'User not found'}));
-            res.end();
-        } else {
-            let body = '';
-            req.on('data', (chunk) => {
-                body += chunk.toString();
-            })
+        if (checkThatThisIsUUID4(id)) {
+            const product = await findById(id);
+            console.log(typeof(product));
+            if (!product) {
+                res.writeHead(404, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({message: 'User not found'}));
+                res.end();
+            } else {
+                let body = '';
+                req.on('data', (chunk) => {
+                    body += chunk.toString();
+                })
 
-            req.on('end', async () => {
-               
-                const { username, age, hobbies } = JSON.parse(body);
-                const neededTypes = checkDataForCreateFunction(username, age, hobbies);
-                if (neededTypes) {
-                    const productData: User = {
-                        username: username,
-                        age: age,
-                        hobbies: hobbies
+                req.on('end', async () => {
+                
+                    const { username, age, hobbies } = JSON.parse(body);
+                    const neededTypes = checkDataForCreateFunction(username, age, hobbies);
+                    if (neededTypes) {
+                        const productData: User = {
+                            username: username,
+                            age: age,
+                            hobbies: hobbies
+                        }
+                        const updProduct = await update(id, productData);
+                        res.writeHead(200, {'Content-Type': 'application/json'});
+                        return res.end(JSON.stringify(updProduct));
+                    } else {
+                        res.writeHead(400, {'Content-Type': 'application/json'});
+                        return res.end(JSON.stringify({message: 'incorrect data to update user'}));
                     }
-                    const updProduct = await update(id, productData);
-                    res.writeHead(200, {'Content-Type': 'application/json'});
-                    return res.end(JSON.stringify(updProduct));
-                } else {
-                    res.writeHead(400, {'Content-Type': 'application/json'});
-                    return res.end(JSON.stringify({message: 'incorrect data to update user'}));
-                }
-            });
+                });
+            }
+        } else {
+            console.log('400');
+            res.writeHead(400, {'Content-Type': 'text/html'});
+            res.write(JSON.stringify({message: 'Not an uuid '}));
+            res.end();
         }
         
+        
     } catch (error) {
-        console.log(error);
+        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'User not found'}));
+        res.end();
     }
 }
 
