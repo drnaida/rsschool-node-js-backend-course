@@ -108,14 +108,20 @@ async function updateProduct(req, res, id) {
             req.on('end', async () => {
                
                 const { username, age, hobbies } = JSON.parse(body);
-                const productData: User = {
-                    username: username || product.username,
-                    age: age || product.age,
-                    hobbies: hobbies || product.hobbies
+                const neededTypes = checkDataForCreateFunction(username, age, hobbies);
+                if (neededTypes) {
+                    const productData: User = {
+                        username: username,
+                        age: age,
+                        hobbies: hobbies
+                    }
+                    const updProduct = await update(id, productData);
+                    res.writeHead(200, {'Content-Type': 'application/json'});
+                    return res.end(JSON.stringify(updProduct));
+                } else {
+                    res.writeHead(400, {'Content-Type': 'application/json'});
+                    return res.end(JSON.stringify({message: 'incorrect data to update user'}));
                 }
-                const updProduct = await update(id, productData);
-                res.writeHead(200, {'Content-Type': 'application/json'});
-                return res.end(JSON.stringify(updProduct));
             });
         }
         
