@@ -27,7 +27,7 @@ async function getProduct(req, res, id: string) {
                 res.end();
             } else {
                 res.writeHead(200, {'Content-Type': 'application/json'});
-                res.write(JSON.stringify({product}));
+                res.write(JSON.stringify(product));
                 res.end();
             }
         } else {
