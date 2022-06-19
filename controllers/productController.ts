@@ -22,9 +22,7 @@ async function getProduct(req, res, id: string) {
     try {
         if (checkThatThisIsUUID4(id)) {
             const product = await database.getById(id);
-            console.log('dsfsd' + product);
             if (!product) {
-                console.log('404');
                 res.writeHead(404, {'Content-Type': 'application/json'});
                 res.write(JSON.stringify({message: 'User not found'}));
                 res.end();
@@ -34,7 +32,6 @@ async function getProduct(req, res, id: string) {
                 res.end();
             }
         } else {
-            console.log('400');
             res.writeHead(400, {'Content-Type': 'application/json'});
             res.write(JSON.stringify({message: 'Not an uuid'}));
             res.end();
@@ -105,7 +102,6 @@ async function updateProduct(req, res, id) {
         }
         if (checkThatThisIsUUID4(id)) {
             const product = await database.getById(id);
-            console.log(typeof(product));
             if (!product) {
                 res.writeHead(404, {'Content-Type': 'application/json'});
                 res.write(JSON.stringify({message: 'User not found'}));
@@ -142,7 +138,6 @@ async function updateProduct(req, res, id) {
                 });
             }
         } else {
-            console.log('400');
             res.writeHead(400, {'Content-Type': 'application/json'});
             res.write(JSON.stringify({message: 'Not an uuid '}));
             res.end();
@@ -174,7 +169,6 @@ async function deleteProduct(req, res, id: string) {
                 res.end();
             }
         } else {
-            console.log('400');
             res.writeHead(400, {'Content-Type': 'application/json'});
             res.write(JSON.stringify({message: 'Not an uuid'}));
             res.end();

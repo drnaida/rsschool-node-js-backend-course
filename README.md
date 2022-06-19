@@ -51,4 +51,10 @@ if you type only
 
 you will get an error
 
-**DELETE request**
+**TO check 500 error, you can just type in POST or PUT invalid JSON**
+
+For example,
+{
+    "username": "NewTest",
+    "age": 18,
+    "hobbies": ["sdfds"]
