@@ -102,3 +102,36 @@ describe('Scenario 2 check for 400', () => {
         expect(res.body).toEqual({message: 'incorrect data for new user'});
     });
 });
+
+describe('Scenario 2 check for 404', () => {
+    it('GET with uuid that does not exist', async () => {
+        const res = await request(server).get('/api/users/78310bf7-3b19-4374-bc32-efd722c55483');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'User not found'});
+    });
+    it('PUT with uuid that does not exist', async () => {
+        const res = await request(server).put('/api/users/78310bf7-3b19-4374-bc32-efd722c55483');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'User not found'});
+    });
+    it('DELETE with uuid that does not exist', async () => {
+        const res = await request(server).delete('/api/users/78310bf7-3b19-4374-bc32-efd722c55483');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'User not found'});
+    });
+    it('GET to route that does not exist', async () => {
+        const res = await request(server).get('/api/players');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'Route not found'});
+    });
+    it('POST to route that does not exist', async () => {
+        const res = await request(server).post('/api/players');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'Route not found'});
+    });
+    it('GET concrete user to the route that does not exist', async () => {
+        const res = await request(server).get('/api/players/78310bf7-3b19-4374-bc32-efd722c55483');
+        expect(res.statusCode).toBe(404);
+        expect(res.body).toEqual({message: 'Route not found'});
+    });
+});
