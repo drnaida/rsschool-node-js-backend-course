@@ -5,19 +5,21 @@ import {v4 as uuid4} from 'uuid';
 // Gets all products GET /api/products
 async function getProducts(req, res) {
     try {
+        
         const products = await database.getAll();
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.write(JSON.stringify(products));
         res.end();
     } catch (error) {
-        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
+        res.end();
     }
 }
 
 //Get single products
 async function getProduct(req, res, id: string) {
     try {
-
         if (checkThatThisIsUUID4(id)) {
             const product = await database.getById(id);
             console.log('dsfsd' + product);
@@ -39,9 +41,8 @@ async function getProduct(req, res, id: string) {
         }
         
     } catch (error) {
-        console.log(error);
-        res.writeHead(404, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({message: 'User not found'}));
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
         res.end();
     }
 }
@@ -50,7 +51,6 @@ async function getProduct(req, res, id: string) {
 //POST /api/products
 async function createProduct(req, res) {
     try {
-
         let body = '';
         req.on('data', (chunk) => {
             body += chunk.toString();
@@ -82,12 +82,15 @@ async function createProduct(req, res) {
         });
         
     } catch (error) {
-        console.log(error);
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
+        res.end();
     }
 }
 // PUT /api/products/:id
 async function updateProduct(req, res, id) {
     try {
+        
         type User = {
             username: string,
             age: number,
@@ -134,8 +137,8 @@ async function updateProduct(req, res, id) {
         
         
     } catch (error) {
-        res.writeHead(404, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({message: 'User not found'}));
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
         res.end();
     }
 }
@@ -144,6 +147,7 @@ async function updateProduct(req, res, id) {
 //DELETE /api/products/:id
 async function deleteProduct(req, res, id: string) {
     try {
+        
         if (checkThatThisIsUUID4(id)) {
             const product = await database.getById(id);
 
@@ -165,8 +169,8 @@ async function deleteProduct(req, res, id: string) {
         
         
     } catch (error) {
-        res.writeHead(404, {'Content-Type': 'application/json'});
-        res.write(JSON.stringify({message: 'User not found'}));
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
         res.end();
     }
 }
