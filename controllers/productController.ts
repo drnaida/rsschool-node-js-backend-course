@@ -146,13 +146,12 @@ async function deleteProduct(req, res, id: string) {
             const product = await findById(id);
 
             if (!product) {
-                res.writeHead(404, {'Content-Type': 'application/json'});
-                res.write(JSON.stringify({message: 'Product not found'}));
+                res.writeHead(404, {'Content-Type': 'text/html'});
+                res.write(JSON.stringify({message: 'User not found'}));
                 res.end();
             } else {
                 await remove(id);
-                res.writeHead(204, {'Content-Type': 'application/json'});
-                res.write(JSON.stringify({message: `Product ${id} removed`}));
+                res.writeHead(204, {'Content-Type': 'text/html'});
                 res.end();
             }
         } else {
@@ -164,7 +163,7 @@ async function deleteProduct(req, res, id: string) {
         
         
     } catch (error) {
-        res.writeHead(404, {'Content-Type': 'application/json'});
+        res.writeHead(404, {'Content-Type': 'text/html'});
         res.write(JSON.stringify({message: 'User not found'}));
         res.end();
     }
