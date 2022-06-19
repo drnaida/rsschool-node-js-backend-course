@@ -1,6 +1,6 @@
 import request from 'supertest';
-import jest from 'jest';
-import { server } from './index';
+import { server } from '../src/index';
+import {it, describe, expect} from 'vitest';
 
 describe('Scenario 1 from the technical requirement', () => {
     it('Get all records with a GET api/users request (an empty array is expected)', async () => {
