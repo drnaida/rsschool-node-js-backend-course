@@ -1,7 +1,10 @@
 import 'dotenv/config';
 import * as http from 'http';
+import process from 'process';
+import {DataBase} from './database';
 import { getProducts, getProduct, createProduct, updateProduct, deleteProduct } from '../controllers/productController';
-const server = http.createServer((req, res) => {
+export const server = http.createServer((req, res) => {
+    console.log(`Worker ${process.pid} requested`);
     const the_url = req.url;
     if ((req.url === '/api/users'  && req.method === 'GET') || (req.url === '/api/users/'  && req.method === 'GET')) {
         getProducts(req, res);
@@ -31,7 +34,4 @@ server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 })
 
-export {
-    server
-}
-
+export const database = new DataBase();

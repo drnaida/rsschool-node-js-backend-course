@@ -1,10 +1,11 @@
 import { profileEnd } from 'console';
-import {findAll, findById, create, update, remove} from '../models/productModel';
 import {checkDataForCreateFunction, checkThatThisIsUUID4} from '../utils';
+import { database } from '../src/index';
+import {v4 as uuid4} from 'uuid';
 // Gets all products GET /api/products
 async function getProducts(req, res) {
     try {
-        const products = await findAll();
+        const products = await database.getAll();
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.write(JSON.stringify(products));
         res.end();
@@ -18,7 +19,7 @@ async function getProduct(req, res, id: string) {
     try {
 
         if (checkThatThisIsUUID4(id)) {
-            const product = await findById(id);
+            const product = await database.getById(id);
             console.log('dsfsd' + product);
             if (!product) {
                 console.log('404');
@@ -69,9 +70,10 @@ async function createProduct(req, res) {
                     age,
                     hobbies
                 }
-                const newProduct = await create(product);
+                const someProduct = {id: uuid4(), ...product};
+                const newProduct = await database.add(someProduct);
                 res.writeHead(201, {'Content-Type': 'application/json'});
-                return res.end(JSON.stringify(newProduct));
+                return res.end(JSON.stringify(someProduct));
             } else {
                 res.writeHead(400, {'Content-Type': 'application/json'});
                 return res.end(JSON.stringify({message: 'incorrect data for new user'}));
@@ -92,7 +94,7 @@ async function updateProduct(req, res, id) {
             hobbies: string[]
         }
         if (checkThatThisIsUUID4(id)) {
-            const product = await findById(id);
+            const product = await database.getById(id);
             console.log(typeof(product));
             if (!product) {
                 res.writeHead(404, {'Content-Type': 'application/json'});
@@ -114,7 +116,7 @@ async function updateProduct(req, res, id) {
                             age: age,
                             hobbies: hobbies
                         }
-                        const updProduct = await update(id, productData);
+                        const updProduct = await database.update(id, productData);
                         res.writeHead(200, {'Content-Type': 'application/json'});
                         return res.end(JSON.stringify(updProduct));
                     } else {
@@ -143,14 +145,14 @@ async function updateProduct(req, res, id) {
 async function deleteProduct(req, res, id: string) {
     try {
         if (checkThatThisIsUUID4(id)) {
-            const product = await findById(id);
+            const product = await database.getById(id);
 
             if (!product) {
                 res.writeHead(404, {'Content-Type': 'application/json'});
                 res.write(JSON.stringify({message: 'User not found'}));
                 res.end();
             } else {
-                await remove(id);
+                await database.delete(id);
                 res.writeHead(204, {'Content-Type': 'application/json'});
                 res.end();
             }
