@@ -57,6 +57,13 @@ async function createProduct(req, res) {
         })
 
         req.on('end', async () => {
+            try {  
+                JSON.parse(body);
+            } catch(err) {
+                res.writeHead(500, {'Content-Type': 'application/json'});
+                res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
+                return res.end();
+            }
             const { username, age, hobbies } = JSON.parse(body);
             const neededTypes = checkDataForCreateFunction(username, age, hobbies);
             if (neededTypes) {
@@ -110,7 +117,13 @@ async function updateProduct(req, res, id) {
                 })
 
                 req.on('end', async () => {
-                
+                    try {  
+                        JSON.parse(body);
+                    } catch(err) {
+                        res.writeHead(500, {'Content-Type': 'application/json'});
+                        res.write(JSON.stringify({message: 'Errors on the server side that occur during the processing of a request'}));
+                        return res.end();
+                    }
                     const { username, age, hobbies } = JSON.parse(body);
                     const neededTypes = checkDataForCreateFunction(username, age, hobbies);
                     if (neededTypes) {
