@@ -52,3 +52,53 @@ describe('Scenario 1 from the technical requirement', () => {
         expect(res.body).toEqual({message: 'User not found'});
     });
 });
+
+describe('Scenario 2 check for 400', () => {
+    let idForTesting;
+    it('GET with not uuid', async () => {
+        const res = await request(server).get('/api/users/9b5afc5');
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toEqual({message: 'Not an uuid'});
+    });
+    const incorrectObjectForPost = {
+        "username": "DRNaida",
+        "hobbies": ["skating"]
+    }
+    it('POST without the required field age', async () => {
+        const res = await request(server).post('/api/users').set('Accept', 'application/json').send(incorrectObjectForPost);;
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toEqual({message: 'incorrect data for new user'});
+    });
+    const objectForPut = {
+        "username": "NewDRNaida",
+        "age": 19,
+        "hobbies": ["programming", "skating"]
+    };
+    it('PUT with not uuid', async () => {
+        const res = await request(server).put('/api/users/43432').set('Accept', 'application/json').send(objectForPut);;
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toEqual({message: 'Not an uuid '});
+    });
+    it('DELETE with not uuid', async () => {
+        const res = await request(server).delete('/api/users/9b5afc5');
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toEqual({message: 'Not an uuid'});
+    });
+    it('PUT with not uuid', async () => {
+        const res = await request(server).post('/api/users').set('Accept', 'application/json').send(objectForPut);;
+        idForTesting = res.body.id;
+        const res1 = await request(server).put(`/api/users/${idForTesting}`).set('Accept', 'application/json').send(incorrectObjectForPost);;
+        expect(res1.statusCode).toBe(400);
+        expect(res1.body).toEqual({message: 'incorrect data to update user'});
+    });
+    const incorrectObjectForPut2 = {
+        "username": "NewDRNaida",
+        "age": 19,
+        "hobbies": ["programming", 8]
+    };
+    it('POST without the required field age', async () => {
+        const res = await request(server).post('/api/users').set('Accept', 'application/json').send(incorrectObjectForPut2);;
+        expect(res.statusCode).toBe(400);
+        expect(res.body).toEqual({message: 'incorrect data for new user'});
+    });
+});

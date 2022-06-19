@@ -23,7 +23,7 @@ async function getProduct(req, res, id: string) {
             if (!product) {
                 console.log('404');
                 res.writeHead(404, {'Content-Type': 'application/json'});
-                res.write(JSON.stringify({message: 'Product not found'}));
+                res.write(JSON.stringify({message: 'User not found'}));
                 res.end();
             } else {
                 res.writeHead(200, {'Content-Type': 'application/json'});
@@ -32,7 +32,7 @@ async function getProduct(req, res, id: string) {
             }
         } else {
             console.log('400');
-            res.writeHead(400, {'Content-Type': 'text/html'});
+            res.writeHead(400, {'Content-Type': 'application/json'});
             res.write(JSON.stringify({message: 'Not an uuid'}));
             res.end();
         }
@@ -125,7 +125,7 @@ async function updateProduct(req, res, id) {
             }
         } else {
             console.log('400');
-            res.writeHead(400, {'Content-Type': 'text/html'});
+            res.writeHead(400, {'Content-Type': 'application/json'});
             res.write(JSON.stringify({message: 'Not an uuid '}));
             res.end();
         }
@@ -146,24 +146,24 @@ async function deleteProduct(req, res, id: string) {
             const product = await findById(id);
 
             if (!product) {
-                res.writeHead(404, {'Content-Type': 'text/html'});
+                res.writeHead(404, {'Content-Type': 'application/json'});
                 res.write(JSON.stringify({message: 'User not found'}));
                 res.end();
             } else {
                 await remove(id);
-                res.writeHead(204, {'Content-Type': 'text/html'});
+                res.writeHead(204, {'Content-Type': 'application/json'});
                 res.end();
             }
         } else {
             console.log('400');
-            res.writeHead(400, {'Content-Type': 'text/html'});
-            res.write(JSON.stringify({message: 'Not an uuid '}));
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            res.write(JSON.stringify({message: 'Not an uuid'}));
             res.end();
         }
         
         
     } catch (error) {
-        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.writeHead(404, {'Content-Type': 'application/json'});
         res.write(JSON.stringify({message: 'User not found'}));
         res.end();
     }
