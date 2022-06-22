@@ -1,8 +1,35 @@
-**commands**
+# rsschool-node-js-backend-course
 
-npm run start:dev - developement
-npm run startd:prod - build
+# Installing
+
+1. git clone [https://github.com/xul7/http-crud-api](https://github.com/drnaida/rsschool-node-js-backend-course.git)
+2. npm install
+# Running
+
+npm run start:dev - Development mode
+npm run start:prod - Production mode
+npm run start:multi - Multi mode - horizontal scaling for application
 npm run test - tests
+
+# Using the application
+
+endpoint api/users:
+
+  GET api/users is used to get all persons
+  
+  GET api/users/${userId}
+  
+  POST api/users is used to create record about new user and store it in database
+  
+  PUT api/users/{userId} is used to update existing user
+  
+  DELETE api/users/${userId} is used to delete existing user from database
+  
+  Users are stored as objects that have following properties:
+  id — unique identifier (string, uuid) generated on server side
+  username — user's name (string, required)
+  age — user's age (number, required)
+  hobbies — user's hobbies (array of strings or empty array, required)
 
 **GET request**
 About validating while getting users
