@@ -4,6 +4,7 @@ import { WebSocketServer } from 'ws';
 import {parseInputCommand} from './src/utils';
 import {mouse_position} from './src/robotjsFunctions/mouse_position';
 import { makeScreenshot } from './src/robotjsFunctions/screenshot';
+import robot from 'robotjs';
 
 const HTTP_PORT = 3000;
 
@@ -17,19 +18,27 @@ wss.on('connection', function connection(ws) {
       console.log(currX, currY);
       ws.send(`mouse_position ${currX} px,${currY} px`);
     } else if (data == 'prnt_scrn') {
-      const imag = makeScreenshot();
-      console.log(imag);
-      new Jimp({data: imag, width: 200, heigth: 200}, (err, image) => {
-        if (err) {
-          console.log(err);
-        } else {
-          const resInBase64 = image.getBase64('image/png', ()=> {
-
-          });
-          console.log(resInBase64);
-          ws.send(`prnt_scrn ${resInBase64}`);
-        }
-      });    
+      const {currX, currY} = mouse_position();
+      let size = 200;
+      const centerX = currX - size/2;
+      const centerY = currY - size/2;
+      let rimg = robot.screen.capture(centerX, centerY, size, size);
+      let jimg = new Jimp(size, size);
+      for (var x=0; x<size; x++) {
+          for (var y=0; y<size; y++) {
+                  // hex is a string, rrggbb format
+                  var hex = rimg.colorAt(x, y);
+                  // Jimp expects an Int, with RGBA data,
+                  // so add FF as 'full opaque' to RGB color
+                  var num = parseInt(hex+"ff", 16)
+                  // Set pixel manually
+                  jimg.setPixelColor(num, x, y);
+          }
+      }
+      jimg.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+        console.log(buffer);
+        ws.send(`prnt_scrn ${buffer.toString('base64')}`);
+      });
   } else {
       const command = data.toString().split(' ')[0];
       parseInputCommand(data);
