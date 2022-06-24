@@ -10,7 +10,7 @@
         "outDir": "dist/",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "types": ["node", "vitest/globals"]
+        "types": ["node"]
     },
     "exclude": ["node_modules", "**/node_modules/*"]
 }

@@ -22,7 +22,5 @@ export const parseInputCommand = (data) => {
         draw_square(value1);
     } else if (command == 'draw_rectangle') {
         draw_rectangle(value1, value2);
-    } else if (command == 'prnt_scrn') {
-        makeScreenshot();
     }
 }
