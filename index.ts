@@ -1,9 +1,8 @@
 import Jimp from 'jimp';
 import {httpServer} from './src/http_server/index';
-import robot from 'robotjs';
 import { WebSocketServer } from 'ws';
 import {parseInputCommand} from './src/utils';
-import { parse } from 'dotenv';
+import {mouse_position} from './src/robotjsFunctions/mouse_position';
 
 const HTTP_PORT = 3000;
 
@@ -12,10 +11,16 @@ const wss = new WebSocketServer({ port: 8080 });
 wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
-    parseInputCommand(data);
+    const command = data.toString().split(' ')[0];
+    if (command == 'mouse_position') {
+      const {currX, currY} = mouse_position();
+      ws.send(`mouse_position ${currX},${currY}`);
+    } {
+      parseInputCommand(data);
+      ws.send(command);
+    }
+    
   });
-
-  ws.send('something');
 });
 
 console.log(`Start static http server on the ${HTTP_PORT} port!`);

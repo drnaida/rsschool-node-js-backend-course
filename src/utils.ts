@@ -5,8 +5,8 @@ import {makeScreenshot} from './robotjsFunctions/screenshot';
 
 export const parseInputCommand = (data) => {
     const command = data.toString().split(' ')[0];
-    const value1 = data.toString().split(' ')[1];
-    const value2 = data.toString().split(' ')[2];
+    const value1: number = Number(data.toString().split(' ')[1]);
+    const value2: number = Number(data.toString().split(' ')[2]);
 
     if (command == 'mouse_up') {
         mouse_up(value1);
@@ -16,8 +16,6 @@ export const parseInputCommand = (data) => {
         mouse_right(value1);
     } else if (command == 'mouse_left') {
         mouse_left(value1);
-    } else if (command == 'mouse_position') {
-        mouse_position();
     } else if (command == 'draw_circle') {
         draw_circle(value1);
     } else if (command == 'draw_square') {
