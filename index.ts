@@ -11,11 +11,12 @@ const wss = new WebSocketServer({ port: 8080 });
 wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
     console.log('received: %s', data);
-    const command = data.toString().split(' ')[0];
-    if (command == 'mouse_position') {
+    if (data == 'mouse_position') {
       const {currX, currY} = mouse_position();
-      ws.send(`mouse_position ${currX},${currY}`);
-    } {
+      console.log(currX, currY);
+      ws.send(`mouse_position ${currX} px,${currY} px`);
+    } else {
+      const command = data.toString().split(' ')[0];
       parseInputCommand(data);
       ws.send(command);
     }
