@@ -11,7 +11,7 @@ console.log(`Start static http server on the ${HTTP_PORT} port!`);
 httpServer.listen(HTTP_PORT);
 const wss = new WebSocketServer({ port: ws_port });
 wss.on('listening', () => {
-  console.log(`Websocket connection started, listening on port: ${ws_port}. Websocket parameters:`)
+  console.log(`Websocket connection started, listening on port: ${ws_port}. Websocket parameters (you will see them when you open localhost:3000):`)
 })
 wss.on('headers', (data) => {
   console.log(data);
@@ -20,19 +20,41 @@ wss.on('connection', (ws) => {
   ws.isAlive = true;
   const wsStream = createWebSocketStream(ws, { encoding: 'utf-8', decodeStrings: false });
   wsStream.on('data', (data) => {
-    console.log('received: %s', data);
     if (data == 'mouse_position') {
-      const {currX, currY} = mouse_position();
-      wsStream.write(`mouse_position ${currX},${currY}\0`);
+      try {
+        console.log(`Command: mouse_position`);
+        const {currX, currY} = mouse_position();
+        wsStream.write(`mouse_position ${currX},${currY}\0`, () => {
+          console.log(`Status: success`);
+        });
+      } catch (err) {
+        console.log('Status: failed');
+      }
+      
     } else if (data == 'prnt_scrn') {
-      const jimg = makeScreenshot();
-      jimg.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
-        wsStream.write(`prnt_scrn ${buffer.toString('base64')}\0`);
-      });
+      try {
+        console.log(`Command: prnt_scrn`);
+        const jimg = makeScreenshot();
+        jimg.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
+          wsStream.write(`prnt_scrn ${buffer.toString('base64')}\0`, () => {
+            console.log(`Status: success`);
+          });
+        });
+      } catch (err) {
+        console.log('Status: failed');
+      }
+      
   } else {
+    try {
       const command = data.toString().split(' ')[0];
+      console.log(`Command: ${data.toString()}`);
       parseInputCommand(data);
-      wsStream.write(`${command}\0`);
+      wsStream.write(`${command}\0`, () => {
+        console.log(`Status: success`);
+      });
+    } catch (err) {
+      console.log('Status: failed');
+    }
     }
   });
 });
