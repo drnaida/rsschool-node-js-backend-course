@@ -4,7 +4,7 @@
     "moduleResolution": "Node",
     "include": [
         "src/*"
-, "__tests/index.test.ts", ""],
+, ""],
     "experimentalDecorators": true,
     "compilerOptions": {
         "outDir": "dist/",
