@@ -1,6 +1,8 @@
 # Installing
 
-git clone https://github.com/xul7/http-crud-api
+git clone https://github.com/drnaida/rsschool-node-js-backend-course.git
+
+git checkout -b week-4-remote-control-with-robot-js
 
 npm install
 
