@@ -26,6 +26,7 @@ wss.on('connection', (ws) => {
         const {currX, currY} = mouse_position();
         wsStream.write(`mouse_position ${currX},${currY}\0`, () => {
           console.log(`Status: success`);
+          console.log(`Answer: mouse_position ${currX} px,${currY} px`);
         });
       } catch (err) {
         console.log('Status: failed');
@@ -38,6 +39,7 @@ wss.on('connection', (ws) => {
         jimg.getBuffer(Jimp.MIME_PNG, (err, buffer) => {
           wsStream.write(`prnt_scrn ${buffer.toString('base64')}\0`, () => {
             console.log(`Status: success`);
+            console.log(`Answer: prnt_scrn ${buffer.toString('base64')}`);
           });
         });
       } catch (err) {
