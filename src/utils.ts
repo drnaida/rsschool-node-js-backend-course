@@ -1,10 +1,8 @@
 import {mouse_up, mouse_down, mouse_right, mouse_left } from './robotjsFunctions/mouse_movements';
-import {mouse_position} from './robotjsFunctions/mouse_position';
 import {draw_circle, draw_rectangle, draw_square} from './robotjsFunctions/mouse_drawings';
-import {makeScreenshot} from './robotjsFunctions/screenshot';
 
 export const parseInputCommand = (data) => {
-    const command = data.toString().split(' ')[0];
+    const command: string = data.toString().split(' ')[0];
     const value1: number = Number(data.toString().split(' ')[1]);
     const value2: number = Number(data.toString().split(' ')[2]);
 

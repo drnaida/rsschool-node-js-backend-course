@@ -1,30 +1,33 @@
-# RSSchool NodeJS websocket task template
-> Static http server and base task packages.
+# Installing
 
-## Installation
-1. Clone/download repo
-2. `npm install`
+git clone https://github.com/xul7/http-crud-api
 
-## Usage
-**Development**
+npm install
 
-`npm run start:dev`
+# Running
 
-* App served @ `http://localhost:8181` with nodemon
+npm run start:dev - Development
 
-**Production**
+npm run start - Using
 
-`npm run start`
+Open localhost:3000 in your browser
 
-* App served @ `http://localhost:8181` without nodemon
+# Using the application
 
----
+Do the steps below for every movement/command that you want to make in the application.
 
-**All commands**
+1. Toggle the browser window if it is not toggled
+2. Press one of the buttons that activate the command
 
-Command | Description
---- | ---
-`npm run dev` | App served @ `http://localhost:8181` with nodemon
-`npm run start` | App served @ `http://localhost:8181` without nodemon
 
-**Note**: replace `npm` with `yarn` in `package.json` if you use yarn.
+## Commands:
+
+- left arrow - move mouse left
+- right arrow - move mouse right
+- up arrow - move mouse up
+- down arrow - move mouse down
+- R button - draw rectangle (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
+- C button - draw circle (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
+- S button - draw square (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
+- P button - get current mouse position in coordinates (The result will be seen on the website)
+- Left CTRL + P - make a screenshot of a square 200x200 around the mouse point (The result will be seen in the website)

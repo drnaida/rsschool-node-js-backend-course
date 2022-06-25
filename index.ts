@@ -5,18 +5,17 @@ import {parseInputCommand} from './src/utils';
 import {mouse_position} from './src/robotjsFunctions/mouse_position';
 import { makeScreenshot } from './src/robotjsFunctions/screenshot';
 
-const HTTP_PORT = 3000;
+const HTTP_PORT: number = 3000;
 console.log(`Start static http server on the ${HTTP_PORT} port!`);
 httpServer.listen(HTTP_PORT);
 const wss = new WebSocketServer({ port: 8080 });
-wss.on('connection', function connection(ws) {
+wss.on('connection', (ws) => {
   ws.isAlive = true;
   const wsStream = createWebSocketStream(ws, { encoding: 'utf-8', decodeStrings: false });
   wsStream.on('data', (data) => {
     console.log('received: %s', data);
     if (data == 'mouse_position') {
       const {currX, currY} = mouse_position();
-      console.log(currX, currY);
       wsStream.write(`mouse_position ${currX},${currY}`);
     } else if (data == 'prnt_scrn') {
       const jimg = makeScreenshot();
