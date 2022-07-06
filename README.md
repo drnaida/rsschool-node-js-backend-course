@@ -1,33 +1,52 @@
-# Installing
+# Musicify microservices
 
-git clone https://github.com/xul7/http-crud-api
+This application caontains multiple services that are used to serve for Musicify App. The follwing microservices exists:
 
-npm install
+- Albums
+- Bands
+- Favourites
+- Genres
+- Tracks
+- Users
+- Artists
 
-# Running
+## Installation
 
-npm run start:dev - Development
+1. In each microservice copy and rename env.example to .env
+2. If needed apply changes in .env file. Each .env file have _PORT_ variable (by default it's 3000 in each service)
+   and _VERIFY_TOKEN_URL_ (url for jwt verification in Users service)
+3. You can install node modules by:
+    ```bash
+   # separately in each service folder
+   npm i
+   
+   # separately for each service form the rood directory
+   npm run install:%serviceName%
+   
+   # for all services (install dependencies for root folder and it will install nested dependencies in postinstall script)
+   npm i
+   ```
+4. To run services:
+   ```bash
+   # separately in each service folder
+   npm run:start:dev
 
-npm run start - Using
+   # separately for each service form the rood directory
+   npm run run:%serviceName%
 
-Open localhost:3000 in your browser
+   # all services watch+debug
+   npm run run:all:dev
+   
+   # all services watch
+   npm run run:all
+   
+   # all services prod mode
+   npm run run:all:prod
+   ```
 
-# Using the application
+## Mongo
 
-Do the steps below for every movement/command that you want to make in the application.
+The application is using MongoDB as a database. Feel free to choose any solution for it, however it's highle recommended to use Docker and the official image for it.
 
-1. Toggle the browser window if it is not toggled
-2. Press one of the buttons that activate the command
+[Docker MongoDB](https://hub.docker.com/_/mongo)
 
-
-## Commands:
-
-- left arrow - move mouse left
-- right arrow - move mouse right
-- up arrow - move mouse up
-- down arrow - move mouse down
-- R button - draw rectangle (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
-- C button - draw circle (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
-- S button - draw square (DO NOT FORGET TO HOVER OVER PAINT or other drawing program to see the result)
-- P button - get current mouse position in coordinates (The result will be seen on the website)
-- Left CTRL + P - make a screenshot of a square 200x200 around the mouse point (The result will be seen in the website)
