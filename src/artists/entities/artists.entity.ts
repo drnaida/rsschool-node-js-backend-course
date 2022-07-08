@@ -1,10 +1,10 @@
-import { Field, Float, Int, ObjectType} from '@nestjs/graphql';
+import { Field, Float, Int, ID, ObjectType} from '@nestjs/graphql';
 import {Band} from "../../bands/entities/bands.entity";
 
 @ObjectType()
 export class Artist {
-    @Field(() => Int, {description: 'ID of the question', nullable: false })
-    id: number;
+    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: false })
+    _id: string;
 
     @Field({nullable: true})
     firstName: string;
