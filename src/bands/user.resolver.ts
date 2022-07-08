@@ -1,11 +1,11 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { Question } from './entities/questions.entity';
+import { Question } from './entities/bands.entity';
 import {questions} from "./data/questions";
-import {QuestionsService} from "./questions.service";
+import {UserService} from "./user.service";
 
 @Resolver(() => Question)
-export class QuestionsResolver {
-    constructor(private readonly questionsService: QuestionsService) {}
+export class UserResolver {
+    constructor(private readonly questionsService: UserService) {}
 
 
     @Query(() => [Question], {name: 'questions'})

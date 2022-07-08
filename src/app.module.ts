@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import {AppResolver} from "./app.resolver";
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import {QuestionsModule} from "./questions/questions.module";
+import
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import {QuestionsModule} from "./questions/questions.module";
             autoSchemaFile: true,
         }),
         QuestionsModule,
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],
