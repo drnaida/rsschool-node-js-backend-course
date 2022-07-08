@@ -1,16 +1,26 @@
 import { Field, Float, Int, ObjectType} from '@nestjs/graphql';
+import {Band} from "../../bands/entities/bands.entity";
+import {Genre} from "../../genres/entities/genres.entity";
+import {Artist} from "../../artists/entities/artists.entity";
+import {Track} from "../../tracks/entities/tracks.entity";
 
 @ObjectType()
 export class Favourites {
     @Field(() => Int, {description: 'ID of the question', nullable: false })
     id: number;
 
-    @Field()
-    content: string;
+    @Field(() => Int, {description: 'ID of the question', nullable: false })
+    userId: number;
 
-    @Field({nullable: true})
-    answerString: string;
+    @Field(() => Band, {nullable: true})
+    bands: Band;
 
-    @Field(() => Float, {nullable: true})
-    answerNumber: number;
+    @Field(() => Genre, {nullable: true})
+    genres: Genre;
+
+    @Field(() => Artist, {nullable: true})
+    artists: Artist;
+
+    @Field(() => Track, {nullable: true})
+    tracks: Track;
 }

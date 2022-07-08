@@ -5,12 +5,15 @@ export class Genre {
     @Field(() => Int, {description: 'ID of the question', nullable: false })
     id: number;
 
-    @Field()
-    content: string;
+    @Field({nullable: true})
+    name: string;
 
     @Field({nullable: true})
-    answerString: string;
+    description: string;
 
-    @Field(() => Float, {nullable: true})
-    answerNumber: number;
+    @Field({nullable: true})
+    country: string;
+
+    @Field(() => Int, {nullable: true})
+    year: number;
 }
