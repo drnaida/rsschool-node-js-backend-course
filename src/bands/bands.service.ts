@@ -18,9 +18,9 @@ export class BandsService {
     async findByIds(ids) {
         const promisesArray = [];
         console.log(ids);
-        ids.forEach((id) => {
+        for (const id of ids) {
             promisesArray.push(this.findByIdOnlyOne(id));
-        });
+        }
         const result = await Promise.all(promisesArray);
         return result;
     }
