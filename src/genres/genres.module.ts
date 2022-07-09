@@ -4,5 +4,6 @@ import { GenresService } from "./genres.service";
 
 @Module({
     providers: [GenresResolver, GenresService],
+    exports: [GenresService]
 })
 export class GenresModule {}

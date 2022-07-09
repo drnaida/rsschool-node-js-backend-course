@@ -1,11 +1,16 @@
-import {Args, Query, Resolver, ID} from '@nestjs/graphql';
+import {Args, Query, Resolver, ID, ResolveField, Parent} from '@nestjs/graphql';
 import { Band } from './entities/bands.entity';
 import {BandsService} from "./bands.service";
 import {Artist} from "../artists/entities/artists.entity";
+import {Genre} from "../genres/entities/genres.entity";
+import {GenresService} from "../genres/genres.service";
 
 @Resolver(() => Band)
 export class BandsResolver {
-    constructor(private bandsService: BandsService) {}
+    constructor(
+        private bandsService: BandsService,
+        private genresService: GenresService
+    ) {}
 
 
     @Query(() => [Band], {name: 'bands'})
@@ -16,5 +21,11 @@ export class BandsResolver {
     @Query(() => Band, { name: 'band' })
     async findId(@Args('id', { type: () => ID}) id: string) {
         return this.bandsService.findByIdOnlyOne(id);
+    }
+
+    @ResolveField(() => [Genre])
+    async genres(@Parent() band: Band) {
+        const { genresIds } = band;
+        return await this.genresService.findByIds(genresIds);
     }
 }
