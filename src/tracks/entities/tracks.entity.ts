@@ -6,8 +6,8 @@ import {Genre} from "../../genres/entities/genres.entity";
 
 @ObjectType()
 export class Track {
-    @Field(() => ID, { nullable: false })
-    id: string;
+    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: false })
+    _id: string;
 
     @Field({nullable: false})
     title: string;
@@ -15,11 +15,11 @@ export class Track {
     @Field(() => Album, {nullable: true})
     album: Album;
 
-    @Field(() => Artist, {nullable: true})
-    artists: Artist;
+    @Field(() => [Artist], {nullable: true})
+    artists: [Artist];
 
-    @Field(()=> Band, {nullable: true})
-    bands: Band;
+    @Field(()=> [Band], {nullable: true})
+    bands: [Band];
 
     @Field(()=> Int, {nullable: true})
     duration: number;
@@ -27,6 +27,14 @@ export class Track {
     @Field(()=> Int, {nullable: true})
     released: number;
 
-    @Field(()=> Genre, {nullable: true})
-    genres: Genre;
+    @Field(()=> [Genre], {nullable: true})
+    genres: [Genre];
+
+    bandsIds: [string];
+
+    albumsIds: [string];
+
+    artistsIds: [string];
+
+    genresIds: [string];
 }

@@ -9,6 +9,7 @@ import {ArtistsModule} from "./artists/artists.module";
 import {BandsModule} from "./bands/bands.module";
 import {GenresModule} from "./genres/genres.module";
 import {AlbumsModule} from "./albums/albums.module";
+import {TracksModule} from "./tracks/tracks.module";
 
 @Module({
     imports: [
@@ -19,7 +20,8 @@ import {AlbumsModule} from "./albums/albums.module";
         ArtistsModule,
         BandsModule,
         GenresModule,
-        AlbumsModule
+        AlbumsModule,
+        TracksModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],
