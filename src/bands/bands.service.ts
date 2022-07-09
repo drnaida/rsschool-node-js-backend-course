@@ -13,7 +13,7 @@ export class BandsService {
         const baseURL = `http://localhost:3003/v1/bands/${id}`;
         const res = await axios.get(baseURL);
         console.log(baseURL);
-        const res_artists = res.data.items;
+        const res_artists = res.data;
         return res_artists;
     }
 }
