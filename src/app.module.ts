@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import {ArtistsModule} from "./artists/artists.module";
 import {BandsModule} from "./bands/bands.module";
 import {GenresModule} from "./genres/genres.module";
+import {AlbumsModule} from "./albums/albums.module";
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import {GenresModule} from "./genres/genres.module";
         }),
         ArtistsModule,
         BandsModule,
-        GenresModule
+        GenresModule,
+        AlbumsModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],
