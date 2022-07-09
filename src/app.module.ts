@@ -6,6 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import {AppResolver} from "./app.resolver";
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import {ArtistsModule} from "./artists/artists.module";
+import {BandsModule} from "./bands/bands.module";
+import {GenresModule} from "./genres/genres.module";
 
 @Module({
     imports: [
@@ -14,6 +16,8 @@ import {ArtistsModule} from "./artists/artists.module";
             autoSchemaFile: true,
         }),
         ArtistsModule,
+        BandsModule,
+        GenresModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],

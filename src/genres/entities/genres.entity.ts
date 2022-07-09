@@ -1,9 +1,9 @@
-import { Field, Float, Int, ObjectType} from '@nestjs/graphql';
+import {Field, Float, ID, Int, ObjectType} from '@nestjs/graphql';
 
 @ObjectType()
 export class Genre {
-    @Field(() => Int, {description: 'ID of the question', nullable: false })
-    id: number;
+    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: false })
+    _id: string;
 
     @Field({nullable: true})
     name: string;
