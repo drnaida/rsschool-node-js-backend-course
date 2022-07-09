@@ -24,8 +24,8 @@ export class Artist {
     @Field({nullable: true})
     country: string;
 
-    @Field(()=>[Band], {nullable: true})
-    bands: Band[];
+    @Field(()=>[Band], {name: 'bands', nullable: true})
+    bandsIds: Band[];
 
     @Field(() => [String], {nullable: true})
     instruments: string[];
