@@ -1,4 +1,4 @@
-import {Args, Query, Resolver} from '@nestjs/graphql';
+import {Args, Query, Resolver, ID} from '@nestjs/graphql';
 import { Band } from './entities/bands.entity';
 import {BandsService} from "./bands.service";
 import {Artist} from "../artists/entities/artists.entity";
@@ -13,8 +13,8 @@ export class BandsResolver {
         return this.bandsService.findAll();
     }
 
-    @Query(returns => Band, { name: 'band' })
-    async getAuthor(@Args('id', { type: () => String }) id: string) {
-        return this.bandsService.findById(id);
+    @Query(() => Band, { name: 'band' })
+    async findId(@Args('id', { type: () => ID}) id: string) {
+        return this.bandsService.findByIdOnlyOne(id);
     }
 }

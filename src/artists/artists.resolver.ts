@@ -25,6 +25,6 @@ export class ArtistsResolver {
     @ResolveField(() => [Band])
     async bands(@Parent() artist: Artist) {
         const { bandsIds } = artist;
-        return await this.bandsService.findById(bandsIds);
+        return await this.bandsService.findByIds(bandsIds);
     }
 }

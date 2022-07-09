@@ -39,6 +39,6 @@ export class Band {
     @Field({nullable: true})
     website: string
 
-    @Field(() => [Genre], {nullable: true})
-    genres: Genre[];
+    // @Field(() => [Genre], {nullable: true})
+    // genres: Genre[];
 }

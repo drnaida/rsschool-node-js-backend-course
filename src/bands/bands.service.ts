@@ -9,11 +9,19 @@ export class BandsService {
         const res_bands = res.data.items;
         return res_bands;
     }
-    async findById(id) {
+    async findByIdOnlyOne(id) {
         const baseURL = `http://localhost:3003/v1/bands/${id}`;
         const res = await axios.get(baseURL);
-        console.log(baseURL);
         const res_artists = res.data;
         return res_artists;
+    }
+    async findByIds(ids) {
+        const promisesArray = [];
+        console.log(ids);
+        ids.forEach((id) => {
+            promisesArray.push(this.findByIdOnlyOne(id));
+        });
+        const result = await Promise.all(promisesArray);
+        return result;
     }
 }
