@@ -1,17 +1,17 @@
 import {Injectable} from "@nestjs/common";
 import axios from 'axios';
-
+import "dotenv/config";
 @Injectable()
 export class TracksService {
     async findAll() {
-        const baseURL = 'http://localhost:3006/v1/tracks';
+        const baseURL = process.env.TRACKS_URL;
         const res = await axios.get(baseURL);
         const res_artists = res.data.items;
         return res_artists;
     }
 
     async findById(id) {
-        const baseURL = `http://localhost:3006/v1/tracks/${id}`;
+        const baseURL = `${process.env.TRACKS_URL}/${id}`;
         const res = await axios.get(baseURL);
         console.log(res.data);
         const res_artists = res.data;
