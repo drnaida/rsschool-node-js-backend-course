@@ -6,9 +6,10 @@ import { UpdateArtistInput} from "./dto/update-artist.input";
 
 @Injectable()
 export class ArtistsService {
-    async findAll() {
+    async findAll(pagination) {
         const baseURL = process.env.ARTISTS_URL;
-        const res = await axios.get(baseURL);
+        const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
+        console.log(res);
         const res_artists = res.data.items;
         return res_artists;
     }

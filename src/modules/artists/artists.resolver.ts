@@ -7,6 +7,7 @@ import {User} from "../users/entities/users.entity";
 import {CreateArtistInput} from "../artists/dto/create-artist.input";
 import {DeletedSomething} from "./entities/delete.entity";
 import {UpdateArtistInput} from "./dto/update-artist.input";
+import {PaginationInput} from "./dto/pagination.entity";
 
 @Resolver(() => Artist)
 export class ArtistsResolver {
@@ -17,8 +18,12 @@ export class ArtistsResolver {
 
 
     @Query(() => [Artist], {name: 'artists'})
-    getAll() {
-        return this.artistsService.findAll();
+    getAll(@Args(
+        {name: 'setPaginationInput',
+            defaultValue: {limit: 2, offset: 0},
+            nullable: true
+        }) setPaginationInput: PaginationInput) {
+        return this.artistsService.findAll(setPaginationInput);
     }
 
     @Query(returns => Artist, { name: 'artist' })
