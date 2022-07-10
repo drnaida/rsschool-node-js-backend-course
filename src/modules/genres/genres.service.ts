@@ -5,9 +5,9 @@ import {CreateGenreInput} from "../genres/dto/create-genre.input";
 import {UpdateGenreInput} from "../genres/dto/update-genre.input";
 @Injectable()
 export class GenresService {
-    async findAll() {
+    async findAll(pagination) {
         const baseURL = process.env.GENRES_URL;
-        const res = await axios.get(baseURL);
+        const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
         const res_genres = res.data.items;
         return res_genres;
     }
