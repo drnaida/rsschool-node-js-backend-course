@@ -114,4 +114,17 @@ acknowledged
 }
 }
 
-# Update
+# Update artists
+
+mutation UpdateArtist($updateArtistInput: UpdateArtistInput!) {
+updateArtist(id: "62c926244a8a0cbde9bac8c3", updateArtistInput: $updateArtistInput) {
+id
+birthDate
+firstName
+}
+}
+
+{ "updateArtistInput":{
+"firstName": "nanana"
+}
+}

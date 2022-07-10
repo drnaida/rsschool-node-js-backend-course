@@ -11,6 +11,7 @@ import {Track} from "../tracks/entities/tracks.entity";
 import {TracksService} from "../tracks/tracks.service";
 import {CreateAlbumInput} from "../albums/dto/create-album.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
+import {UpdateAlbumInput} from "../albums/dto/update-album.input";
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -65,5 +66,17 @@ export class AlbumsResolver {
     @Mutation(() => DeletedSomething)
     async deleteAlbum(@Args('id', { type: () => ID }) id: string) {
         return await this.albumsService.deleteAlbum(id);
+    }
+
+    @Mutation(returns => Album)
+    async updateAlbum(
+        @Args('id') id: string,
+        @Args('updateAlbumInput', { type: () => UpdateAlbumInput, nullable: false })
+            updateAlbumInput: UpdateAlbumInput
+    ) {
+        return await this.albumsService.updateAlbum(
+            id,
+            updateAlbumInput,
+        );
     }
 }

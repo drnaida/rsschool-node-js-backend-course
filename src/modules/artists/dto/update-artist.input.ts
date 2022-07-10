@@ -3,7 +3,6 @@ import { IsOptional } from 'class-validator';
 
 @InputType()
 export class UpdateArtistInput {
-
     @Field({nullable: true})
     @IsOptional()
     firstName: string;

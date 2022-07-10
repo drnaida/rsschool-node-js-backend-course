@@ -1,6 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import {CreateAlbumInput} from "../albums/dto/create-album.input";
+import {UpdateAlbumInput} from "../albums/dto/update-album.input";
 
 @Injectable()
 export class AlbumsService {
@@ -45,6 +46,18 @@ export class AlbumsService {
         const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
         const res = await axios.delete(
             baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
+
+    async updateAlbum(id: string, updateAlbumInput: UpdateAlbumInput) {
+        const baseURL = `${process.env.ALBUMS_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.put(
+            baseURL,
+            updateAlbumInput,
             headers
         );
         const res_artists = res.data;
