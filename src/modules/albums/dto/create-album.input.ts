@@ -16,11 +16,15 @@ export class CreateAlbumInput {
     @Field({nullable: true})
     image: string;
 
+    @Field(() => [ID], {nullable: true})
     bandsIds: [string];
 
+    @Field(() => [ID], {nullable: true})
     artistsIds: [string];
 
+    @Field(() => [ID], {nullable: true})
     genresIds: [string];
 
+    @Field(() => [ID], {nullable: true})
     trackIds: [string];
 }

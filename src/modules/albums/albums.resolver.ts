@@ -1,4 +1,4 @@
-import { Query, Resolver, Args, ResolveField, Parent } from '@nestjs/graphql';
+import {Query, Resolver, Args, ResolveField, Parent, Mutation} from '@nestjs/graphql';
 import { Album } from './entities/albums.entity';
 import {AlbumsService} from "./albums.service";
 import {Band} from "../bands/entities/bands.entity";
@@ -9,6 +9,7 @@ import {ArtistsService} from "../artists/artists.service";
 import {GenresService} from "../genres/genres.service";
 import {Track} from "../tracks/entities/tracks.entity";
 import {TracksService} from "../tracks/tracks.service";
+import {CreateAlbumInput} from "../albums/dto/create-album.input";
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -53,5 +54,10 @@ export class AlbumsResolver {
     async tracks(@Parent() album: Album) {
         const { trackIds } = album;
         return await this.tracksService.findByIds(trackIds);
+    }
+
+    @Mutation(returns => Album)
+    async createAlbum(@Args('createAlbumInput') createAlbumInput: CreateAlbumInput) {
+        return await this.albumsService.createAlbum(createAlbumInput);
     }
 }
