@@ -6,9 +6,9 @@ import {UpdateBandInput} from "../bands/dto/update-band.input";
 
 @Injectable()
 export class BandsService {
-    async findAll() {
+    async findAll(pagination) {
         const baseURL = process.env.BANDS_URL;
-        const res = await axios.get(baseURL);
+        const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
         const res_bands = res.data.items;
         return res_bands;
     }

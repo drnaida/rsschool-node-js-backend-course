@@ -8,6 +8,7 @@ import {CreateBandInput} from "../bands/dto/create-band.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
 import {Album} from "../albums/entities/albums.entity";
 import {UpdateBandInput} from "../bands/dto/update-band.input";
+import {PaginationInput} from "../artists/dto/pagination.entity";
 
 @Resolver(() => Band)
 export class BandsResolver {
@@ -18,8 +19,10 @@ export class BandsResolver {
 
 
     @Query(() => [Band], {name: 'bands'})
-    getAll() {
-        return this.bandsService.findAll();
+    getAll(@Args('setPaginationInput', { type: () => PaginationInput, nullable: true, defaultValue: {limit: 2, offset: 0} })
+               setPaginationInput: PaginationInput
+    ) {
+        return this.bandsService.findAll(setPaginationInput);
     }
 
     @Query(() => Band, { name: 'band' })
