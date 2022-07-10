@@ -3,17 +3,8 @@ import {Genre} from "../../genres/entities/genres.entity";
 
 @ObjectType()
 export class Member {
-    @Field(() => Int, {description: 'ID of the question', nullable: false })
-    id: number;
-
-    @Field({nullable: true})
-    firstName: string;
-
-    @Field({nullable: true})
-    secondName: string;
-
-    @Field({nullable: true})
-    middleName: string;
+    @Field(() => ID, {description: 'ID of the question', nullable: false })
+    artist: string;
 
     @Field({nullable: true})
     instrument: string;
@@ -33,8 +24,8 @@ export class Band {
     @Field({nullable: true})
     origin: string;
 
-    // @Field(() => [Member], {nullable: true})
-    // members: Member[];
+    @Field(() => [Member], {nullable: true})
+    members: Member[];
 
     @Field({nullable: true})
     website: string

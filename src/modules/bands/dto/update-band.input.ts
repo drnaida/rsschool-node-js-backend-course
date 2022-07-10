@@ -12,8 +12,8 @@ export class UpdateBandInput {
     @IsOptional()
     origin: string;
 
-    // @Field(() => [Member], {nullable: true})
-    // members: Member[];
+    @Field(() => [Member], {nullable: true})
+    members: Member[];
 
     @Field({nullable: true})
     @IsOptional()
