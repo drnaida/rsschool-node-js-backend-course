@@ -80,3 +80,23 @@ result:
 }
 }
 }
+
+# Create Genre
+
+mutation createGenre($createGenreInput: CreateGenreInput!) {
+createGenre(createGenreInput: $createGenreInput) {
+id
+name
+description
+country
+year
+}
+}
+
+{ "createGenreInput":{
+"name": "jaz",
+"description": "description",
+"country": "country",
+"year": 1970
+}
+}

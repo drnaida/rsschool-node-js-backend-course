@@ -1,7 +1,9 @@
-import {Args, ID, Query, Resolver} from '@nestjs/graphql';
+import {Args, ID, Mutation, Query, Resolver} from '@nestjs/graphql';
 import { Genre } from './entities/genres.entity';
 import {GenresService} from "./genres.service";
 import {Band} from "../bands/entities/bands.entity";
+import {Artist} from "../artists/entities/artists.entity";
+import {CreateGenreInput} from "../genres/dto/create-genre.input";
 
 @Resolver(() => Genre)
 export class GenresResolver {
@@ -16,5 +18,10 @@ export class GenresResolver {
     @Query(() => Genre, { name: 'genre' })
     async findId(@Args('id', { type: () => ID}) id: string) {
         return this.genresService.findByIdOnlyOne(id);
+    }
+
+    @Mutation(returns => Genre)
+    async createGenre(@Args('createGenreInput') createGenreInput: CreateGenreInput) {
+        return await this.genresService.createGenre(createGenreInput);
     }
 }
