@@ -10,6 +10,7 @@ import {BandsModule} from "./bands/bands.module";
 import {GenresModule} from "./genres/genres.module";
 import {AlbumsModule} from "./albums/albums.module";
 import {TracksModule} from "./tracks/tracks.module";
+import {UsersModule} from "./users/users.module";
 
 @Module({
     imports: [
@@ -21,7 +22,8 @@ import {TracksModule} from "./tracks/tracks.module";
         BandsModule,
         GenresModule,
         AlbumsModule,
-        TracksModule
+        TracksModule,
+        UsersModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],

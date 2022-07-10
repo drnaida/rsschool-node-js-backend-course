@@ -2,8 +2,8 @@ import { Field, Float, Int, ID, ObjectType} from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
-    @Field(() => ID, { nullable: false })
-    id: string;
+    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: false })
+    _id: string;
 
     @Field({nullable: true})
     firstName: string;
