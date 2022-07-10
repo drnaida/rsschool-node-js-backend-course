@@ -41,4 +41,15 @@ export class TracksService {
         const res_artists = res.data;
         return res_artists;
     }
+    async deleteTrack(id: string) {
+        const baseURL = `${process.env.TRACKS_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.delete(
+            baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
+
 }
