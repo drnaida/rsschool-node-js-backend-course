@@ -5,9 +5,9 @@ import {UpdateAlbumInput} from "../albums/dto/update-album.input";
 
 @Injectable()
 export class AlbumsService {
-    async findAll() {
+    async findAll(pagination) {
         const baseURL = process.env.ALBUMS_URL;
-        const res = await axios.get(baseURL);
+        const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
         const res_artists = res.data.items;
         return res_artists;
     }

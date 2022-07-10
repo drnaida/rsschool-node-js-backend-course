@@ -12,6 +12,7 @@ import {TracksService} from "../tracks/tracks.service";
 import {CreateAlbumInput} from "../albums/dto/create-album.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
 import {UpdateAlbumInput} from "../albums/dto/update-album.input";
+import {PaginationInput} from "../artists/dto/pagination.entity";
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -25,8 +26,10 @@ export class AlbumsResolver {
 
 
     @Query(() => [Album], {name: 'albums'})
-    getAll() {
-        return this.albumsService.findAll();
+    getAll(@Args('setPaginationInput', { type: () => PaginationInput, nullable: true, defaultValue: {limit: 2, offset: 0} })
+               setPaginationInput: PaginationInput
+    ) {
+        return this.albumsService.findAll(setPaginationInput);
     }
 
     @Query(returns => Album, { name: 'album' })
