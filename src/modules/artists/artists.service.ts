@@ -2,6 +2,7 @@ import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import "dotenv/config";
 import {CreateArtistInput} from "../artists/dto/create-artist.input";
+import { UpdateArtistInput} from "./dto/update-artist.input";
 
 @Injectable()
 export class ArtistsService {
@@ -45,6 +46,18 @@ export class ArtistsService {
         const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
         const res = await axios.delete(
             baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
+
+    async updateArtist(id: string, updateArtistInput: UpdateArtistInput) {
+        const baseURL = `${process.env.ARTISTS_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.put(
+            baseURL,
+            updateArtistInput,
             headers
         );
         const res_artists = res.data;

@@ -103,3 +103,15 @@ year
 
 
 # Create Band
+
+
+# Delete 
+
+mutation {
+deleteTrack(id: "62c9e14d4fa20d82268eb4ee") {
+deletedCount
+acknowledged
+}
+}
+
+# Update

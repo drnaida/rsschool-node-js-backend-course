@@ -6,6 +6,7 @@ import {BandsService} from "../bands/bands.service";
 import {User} from "../users/entities/users.entity";
 import {CreateArtistInput} from "../artists/dto/create-artist.input";
 import {DeletedSomething} from "./entities/delete.entity";
+import {UpdateArtistInput} from "./dto/update-artist.input";
 
 @Resolver(() => Artist)
 export class ArtistsResolver {
@@ -39,5 +40,17 @@ export class ArtistsResolver {
     @Mutation(() => DeletedSomething)
     async deleteArtist(@Args('id', { type: () => ID }) id: string) {
         return await this.artistsService.deleteArtist(id);
+    }
+
+    @Mutation(returns => Artist)
+    async updateArtist(
+        @Args('id') id: string,
+        @Args('updateArtistInput', { type: () => UpdateArtistInput, nullable: false })
+        updateArtistInput: UpdateArtistInput
+    ) {
+        return await this.artistsService.updateArtist(
+            id,
+            updateArtistInput,
+        );
     }
 }
