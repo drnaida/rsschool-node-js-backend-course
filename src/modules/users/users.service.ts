@@ -17,14 +17,12 @@ export class UsersService {
     async findById(id) {
         const baseURL = `${process.env.USERS_URL}/${id}`;
         const res = await axios.get(baseURL);
-        console.log(res.data);
         const res_artists = res.data;
         return res_artists;
     }
 
     async findByIds(ids) {
         const promisesArray = [];
-        console.log(ids);
         for (const id of ids) {
             promisesArray.push(this.findById(id));
         }
@@ -36,7 +34,6 @@ export class UsersService {
         const baseURL = `${process.env.USERS_URL}/register`;
         const res = await axios.post(baseURL, createUserInput);
         const res_artists = res.data;
-        console.log(res_artists);
         return res_artists;
     }
 
@@ -44,7 +41,6 @@ export class UsersService {
         const baseURL = `${process.env.USERS_URL}/login`;
         const res = await axios.post(baseURL, loginInputForJwt);
         const res_artists = res.data;
-        console.log(res_artists);
         return res_artists;
     }
 }

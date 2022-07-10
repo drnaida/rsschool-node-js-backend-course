@@ -5,12 +5,12 @@ import { join } from 'path';
 import { GraphQLModule } from '@nestjs/graphql';
 import {AppResolver} from "./app.resolver";
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import {ArtistsModule} from "./artists/artists.module";
-import {BandsModule} from "./bands/bands.module";
-import {GenresModule} from "./genres/genres.module";
-import {AlbumsModule} from "./albums/albums.module";
-import {TracksModule} from "./tracks/tracks.module";
-import {UsersModule} from "./users/users.module";
+import {ArtistsModule} from "./modules/artists/artists.module";
+import {BandsModule} from "./modules/bands/bands.module";
+import {GenresModule} from "./modules/genres/genres.module";
+import {AlbumsModule} from "./modules/albums/albums.module";
+import {TracksModule} from "./modules/tracks/tracks.module";
+import {UsersModule} from "./modules/users/users.module";
 
 @Module({
     imports: [

@@ -21,7 +21,6 @@ export class GenresService {
             promisesArray.push(this.findByIdOnlyOne(id));
         }
         const result = await Promise.all(promisesArray);
-        console.log('result', result);
         return result;
     }
 }

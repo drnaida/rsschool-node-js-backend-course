@@ -7,6 +7,8 @@ import {Genre} from "../genres/entities/genres.entity";
 import {BandsService} from "../bands/bands.service";
 import {ArtistsService} from "../artists/artists.service";
 import {GenresService} from "../genres/genres.service";
+import {Track} from "../tracks/entities/tracks.entity";
+import {TracksService} from "../tracks/tracks.service";
 
 @Resolver(() => Album)
 export class AlbumsResolver {
@@ -14,7 +16,8 @@ export class AlbumsResolver {
         private albumsService: AlbumsService,
         private bandsService: BandsService,
         private artistsService: ArtistsService,
-        private genresService: GenresService
+        private genresService: GenresService,
+        private tracksService: TracksService
     ) {}
 
 
@@ -44,5 +47,11 @@ export class AlbumsResolver {
     async genres(@Parent() album: Album) {
         const { genresIds } = album;
         return await this.genresService.findByIds(genresIds);
+    }
+
+    @ResolveField(() => [Track])
+    async tracks(@Parent() album: Album) {
+        const { trackIds } = album;
+        return await this.tracksService.findByIds(trackIds);
     }
 }

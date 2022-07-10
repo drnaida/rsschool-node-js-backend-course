@@ -32,9 +32,9 @@ export class Track {
 
     bandsIds: [string];
 
-    albumsIds: [string];
-
     artistsIds: [string];
+
+    albumId: string;
 
     genresIds: [string];
 }

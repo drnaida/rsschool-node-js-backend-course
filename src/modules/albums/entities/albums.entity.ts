@@ -32,9 +32,9 @@ export class Album {
 
     bandsIds: [string];
 
-    tracksIds: [string];
-
     artistsIds: [string];
 
     genresIds: [string];
+
+    trackIds: [string];
 }
