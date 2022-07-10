@@ -17,7 +17,7 @@ export class FavouritesResolver {
     ) {}
 
 
-    @Query(() => [Favourites], {name: 'favourites'})
+    @Query(() => Favourites, {name: 'favourites'})
     getAll(@Args('setPaginationInput', { type: () => PaginationInput, nullable: true, defaultValue: {limit: 2, offset: 0} })
         setPaginationInput: PaginationInput
     ) {

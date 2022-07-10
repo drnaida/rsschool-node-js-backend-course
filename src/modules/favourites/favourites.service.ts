@@ -8,7 +8,7 @@ export class FavouritesService {
     async findAll() {
         const baseURL = process.env.FAVOURITES_URL;
         const res = await axios.get(baseURL, { headers: {Authorization: process.env.AUTHORIZATION_TOKEN} });
-        const res_artists = res.data;
+        const res_artists = res;
         console.log(res);
         return res_artists;
     }
