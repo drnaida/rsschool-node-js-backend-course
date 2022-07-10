@@ -12,6 +12,7 @@ import {AlbumsModule} from "./modules/albums/albums.module";
 import {TracksModule} from "./modules/tracks/tracks.module";
 import {UsersModule} from "./modules/users/users.module";
 import {GraphQLError} from "graphql";
+import {FavouritesModule} from "./modules/favourites/favourites.module";
 
 @Module({
     imports: [
@@ -33,7 +34,8 @@ import {GraphQLError} from "graphql";
         GenresModule,
         AlbumsModule,
         TracksModule,
-        UsersModule
+        UsersModule,
+        FavouritesModule
     ],
     controllers: [AppController],
     providers: [AppService, AppResolver],
