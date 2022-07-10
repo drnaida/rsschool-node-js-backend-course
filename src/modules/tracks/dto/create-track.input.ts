@@ -15,14 +15,15 @@ export class CreateTrackInput {
     @Field(()=> Int, {nullable: true})
     released: number;
 
-    @Field(()=> [Genre], {nullable: true})
-    genres: [Genre];
-
+    @Field(() => [ID], {nullable: true})
     bandsIds: [string];
 
+    @Field(() => [ID], {nullable: true})
     artistsIds: [string];
 
+    @Field(() => [ID], {nullable: true})
     albumId: string;
 
+    @Field(() => [ID], {nullable: true})
     genresIds: [string];
 }

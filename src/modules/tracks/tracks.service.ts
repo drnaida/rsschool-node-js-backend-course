@@ -1,6 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import "dotenv/config";
+import {CreateTrackInput} from "../tracks/dto/create-track.input";
 @Injectable()
 export class TracksService {
     async findAll() {
@@ -27,5 +28,17 @@ export class TracksService {
         }
         const result = await Promise.all(promisesArray);
         return result;
+    }
+
+    async createTrack(createTrackInput: CreateTrackInput) {
+        const baseURL = `${process.env.TRACKS_URL}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.post(
+            baseURL,
+            createTrackInput,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
     }
 }
