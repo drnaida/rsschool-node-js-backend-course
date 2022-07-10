@@ -18,11 +18,9 @@ export class ArtistsResolver {
 
 
     @Query(() => [Artist], {name: 'artists'})
-    getAll(@Args(
-        {name: 'setPaginationInput',
-            defaultValue: {limit: 2, offset: 0},
-            nullable: true
-        }) setPaginationInput: PaginationInput) {
+    getAll(@Args('setPaginationInput', { type: () => PaginationInput, nullable: true, defaultValue: {limit: 2, offset: 0} })
+        setPaginationInput: PaginationInput
+    ) {
         return this.artistsService.findAll(setPaginationInput);
     }
 

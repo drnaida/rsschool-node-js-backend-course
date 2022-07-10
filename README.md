@@ -128,3 +128,27 @@ firstName
 "firstName": "nanana"
 }
 }
+
+# Control pagination in artists
+
+query Artists($setPaginationInput: PaginationInput) {
+artists(setPaginationInput: $setPaginationInput) {
+id
+bands {
+id
+name
+genres {
+name
+}
+}
+firstName
+secondName
+instruments
+}
+}
+
+{ "setPaginationInput":{
+"limit": 1,
+"offset": 0
+}
+}
