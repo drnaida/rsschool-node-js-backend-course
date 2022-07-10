@@ -5,9 +5,9 @@ import {CreateTrackInput} from "../tracks/dto/create-track.input";
 import {UpdateTrackInput} from "../tracks/dto/update-track.input";
 @Injectable()
 export class TracksService {
-    async findAll() {
+    async findAll(pagination) {
         const baseURL = process.env.TRACKS_URL;
-        const res = await axios.get(baseURL);
+        const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
         const res_artists = res.data.items;
         console.log('data23232', res_artists);
         return res_artists;

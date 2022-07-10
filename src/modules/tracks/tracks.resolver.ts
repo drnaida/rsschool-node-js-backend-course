@@ -12,6 +12,7 @@ import {Album} from "../albums/entities/albums.entity";
 import {CreateTrackInput} from "../tracks/dto/create-track.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
 import {UpdateTrackInput} from "../tracks/dto/update-track.input";
+import {PaginationInput} from "../artists/dto/pagination.entity";
 
 @Resolver(() => Track)
 export class TracksResolver {
@@ -24,12 +25,10 @@ export class TracksResolver {
     ) {}
 
     @Query(() => [Track], {name: 'tracks'})
-    async getAll() {
-        this.tracksService.findAll().then((a) => {
-                console.log(a);
-            }
-        );
-        return this.tracksService.findAll();
+    async getAll(@Args('setPaginationInput', { type: () => PaginationInput, nullable: true, defaultValue: {limit: 2, offset: 0} })
+                         setPaginationInput: PaginationInput
+    ) {
+        return this.tracksService.findAll(setPaginationInput);
     }
 
 
