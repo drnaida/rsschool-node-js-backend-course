@@ -17,6 +17,11 @@ import {UsersModule} from "./modules/users/users.module";
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             autoSchemaFile: true,
+            context: ({ req }): object => {
+                const authScope = req.headers.authorization || '';
+                process.env.AUTHORIZATION_TOKEN = authScope;
+                return { authScope };
+            },
         }),
         ArtistsModule,
         BandsModule,

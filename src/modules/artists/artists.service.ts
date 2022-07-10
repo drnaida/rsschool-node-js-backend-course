@@ -1,6 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import "dotenv/config";
+import {CreateArtistInput} from "../artists/dto/create-artist.input";
 
 @Injectable()
 export class ArtistsService {
@@ -25,5 +26,17 @@ export class ArtistsService {
         }
         const result = await Promise.all(promisesArray);
         return result;
+    }
+
+    async createArtist(createArtistInput: CreateArtistInput) {
+        const baseURL = `${process.env.ARTISTS_URL}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.post(
+            baseURL,
+            createArtistInput,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
     }
 }
