@@ -1,9 +1,10 @@
-import {Args, Query, Resolver, ID, ResolveField, Parent} from '@nestjs/graphql';
+import {Args, Query, Resolver, ID, ResolveField, Parent, Mutation} from '@nestjs/graphql';
 import { Band } from './entities/bands.entity';
 import {BandsService} from "./bands.service";
 import {Artist} from "../artists/entities/artists.entity";
 import {Genre} from "../genres/entities/genres.entity";
 import {GenresService} from "../genres/genres.service";
+import {CreateBandInput} from "../bands/dto/create-band.input";
 
 @Resolver(() => Band)
 export class BandsResolver {
@@ -27,5 +28,10 @@ export class BandsResolver {
     async genres(@Parent() band: Band) {
         const { genresIds } = band;
         return await this.genresService.findByIds(genresIds);
+    }
+
+    @Mutation(returns => Band)
+    async createBand(@Args('createBandInput') createBandInput: CreateBandInput) {
+        return await this.bandsService.createBand(createBandInput);
     }
 }

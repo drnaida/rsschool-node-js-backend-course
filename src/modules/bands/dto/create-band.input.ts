@@ -15,5 +15,6 @@ export class CreateBandInput {
     @Field({nullable: true})
     website: string
 
+    @Field(() => [ID], {nullable: true})
     genresIds: [string];
 }

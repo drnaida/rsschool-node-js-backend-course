@@ -1,6 +1,7 @@
 import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import "dotenv/config";
+import {CreateBandInput} from "../bands/dto/create-band.input";
 
 @Injectable()
 export class BandsService {
@@ -23,5 +24,16 @@ export class BandsService {
         }
         const result = await Promise.all(promisesArray);
         return result;
+    }
+    async createBand(createBandInput: CreateBandInput) {
+        const baseURL = `${process.env.BANDS_URL}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.post(
+            baseURL,
+            createBandInput,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
     }
 }
