@@ -8,12 +8,19 @@ import {CreateArtistInput} from "../artists/dto/create-artist.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
 import {PaginationInput} from "../artists//dto/pagination.entity";
 import {Favourites} from "./entities/favourites.entity";
+import {TracksService} from "../tracks/tracks.service";
+import {GenresService} from "../genres/genres.service";
+import {ArtistsService} from "../artists/artists.service";
+import {CreateFavourites} from "./dto/create-fav.input";
 
 @Resolver(() => Favourites)
 export class FavouritesResolver {
     constructor(
         private favouritesService: FavouritesService,
-        private bandsService: BandsService
+        private bandsService: BandsService,
+        private tracksService: TracksService,
+        private genresService: GenresService,
+        private artistsService: ArtistsService
     ) {}
 
 
@@ -24,19 +31,88 @@ export class FavouritesResolver {
         return this.favouritesService.findAll();
     }
 
-    @ResolveField(() => [Band])
-    async bands(@Parent() artist: Artist) {
-        const { bandsIds } = artist;
+
+    @Mutation(() => Favourites)
+    async addGenreToFavourites(
+        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    ) {
+        return await this.favouritesService.add(
+            createFavoriteInput,
+            'genres',
+        );
+    }
+
+    @Mutation(() => Favourites)
+    async addTrackToFavourites(
+        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    ) {
+        return await this.favouritesService.add(
+            createFavoriteInput,
+            'tracks',
+        );
+    }
+
+    @Mutation(() => Favourites)
+    async addBandToFavourites(
+        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    ) {
+        return await this.favouritesService.add(
+            createFavoriteInput,
+            'bands',
+        );
+    }
+
+    @Mutation(() => Favourites)
+    async addArtistToFavourites(
+        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    ) {
+        return await this.favouritesService.add(
+            createFavoriteInput,
+            'artists',
+        );
+    }
+
+    @Mutation(() => Favourites)
+    deleteGenreFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
+        return this.favouritesService.delete(input, 'genres');
+    }
+
+    @Mutation(() => Favourites)
+    deleteArtistFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
+        return this.favouritesService.delete(input, 'artists');
+    }
+
+    @Mutation(() => Favourites)
+    deleteBandFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
+        return this.favouritesService.delete(input, 'bands');
+    }
+
+    @Mutation(() => Favourites)
+    deleteTrackFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
+        return this.favouritesService.delete(input, 'tracks');
+    }
+
+    @ResolveField()
+    async genres(@Parent() favourites: Favourites) {
+        const { genresIds } = favourites;
+        return this.genresService.findByIds(genresIds);
+    }
+
+    @ResolveField()
+    async bands(@Parent() favourites: Favourites) {
+        const { bandsIds } = favourites;
         return await this.bandsService.findByIds(bandsIds);
     }
 
-    @Mutation(returns => Artist)
-    async createArtist(@Args('createArtistInput') createArtistInput: CreateArtistInput) {
-        return await this.favouritesService.createArtist(createArtistInput);
+    @ResolveField()
+    async artists(@Parent() favourites: Favourites) {
+        const { artistsIds } = favourites;
+        return this.artistsService.findByIds(artistsIds);
     }
 
-    @Mutation(() => DeletedSomething)
-    async deleteArtist(@Args('id', { type: () => ID }) id: string) {
-        return await this.favouritesService.deleteArtist(id);
+    @ResolveField()
+    async tracks(@Parent() favourites: Favourites) {
+        const { tracksIds } = favourites;
+        return this.tracksService.findByIds(tracksIds);
     }
 }
