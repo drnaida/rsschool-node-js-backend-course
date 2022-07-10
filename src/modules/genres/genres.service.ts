@@ -2,6 +2,7 @@ import {Injectable} from "@nestjs/common";
 import axios from 'axios';
 import "dotenv/config";
 import {CreateGenreInput} from "../genres/dto/create-genre.input";
+import {UpdateGenreInput} from "../genres/dto/update-genre.input";
 @Injectable()
 export class GenresService {
     async findAll() {
@@ -42,6 +43,18 @@ export class GenresService {
         const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
         const res = await axios.delete(
             baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
+
+    async updateGenre(id: string, updateGenreInput: UpdateGenreInput) {
+        const baseURL = `${process.env.GENRES_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.put(
+            baseURL,
+            updateGenreInput,
             headers
         );
         const res_artists = res.data;
