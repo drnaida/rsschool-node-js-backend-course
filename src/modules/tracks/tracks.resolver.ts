@@ -54,8 +54,11 @@ export class TracksResolver {
     }
 
     @ResolveField(() => [Album])
-    async album(@Parent() track: Track) {
+    album(@Parent() track: Track) {
         const { albumId } = track;
-        return await this.albumsService.findById(albumId);
+        if (!albumId) {
+            return null;
+        }
+        return this.albumsService.findById(albumId);
     }
 }

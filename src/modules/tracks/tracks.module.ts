@@ -8,8 +8,7 @@ import {AlbumsService} from "../albums/albums.service";
 import {AlbumsModule} from "../albums/albums.module";
 
 @Module({
-    providers: [TracksResolver, TracksService, BandsService, GenresService, ArtistsService],
-    imports: [forwardRef(() => AlbumsModule)],
+    providers: [TracksResolver, TracksService, BandsService, GenresService, ArtistsService, AlbumsService],
     exports: [TracksService]
 })
 export class TracksModule {}
