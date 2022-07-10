@@ -2,7 +2,7 @@ import {Field, Float, ID, InputType, Int} from "@nestjs/graphql";
 import {Genre} from "../../genres/entities/genres.entity";
 
 @InputType()
-export class MemberInput {
+export class CreateMemberInput {
     @Field(() => ID, {description: 'ID of the question', nullable: false })
     artist: string;
 
@@ -21,7 +21,7 @@ export class CreateBandInput {
     @Field({nullable: true})
     origin: string;
 
-    @Field(() => [MemberInput], { nullable: true })
+    @Field(() => [CreateMemberInput], { nullable: true })
     members: {
         artist: string,
         instrument: string;

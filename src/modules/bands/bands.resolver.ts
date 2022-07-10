@@ -9,12 +9,14 @@ import {DeletedSomething} from "../artists/entities/delete.entity";
 import {Album} from "../albums/entities/albums.entity";
 import {UpdateBandInput} from "../bands/dto/update-band.input";
 import {PaginationInput} from "../artists/dto/pagination.entity";
+import {ArtistsService} from "../artists/artists.service";
 
 @Resolver(() => Band)
 export class BandsResolver {
     constructor(
         private bandsService: BandsService,
-        private genresService: GenresService
+        private genresService: GenresService,
+        private artistsService: ArtistsService
     ) {}
 
 
@@ -57,4 +59,6 @@ export class BandsResolver {
             updateBandInput,
         );
     }
+
+
 }
