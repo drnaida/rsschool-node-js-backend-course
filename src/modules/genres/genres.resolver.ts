@@ -4,6 +4,7 @@ import {GenresService} from "./genres.service";
 import {Band} from "../bands/entities/bands.entity";
 import {Artist} from "../artists/entities/artists.entity";
 import {CreateGenreInput} from "../genres/dto/create-genre.input";
+import {DeletedSomething} from "../artists/entities/delete.entity";
 
 @Resolver(() => Genre)
 export class GenresResolver {
@@ -23,5 +24,10 @@ export class GenresResolver {
     @Mutation(returns => Genre)
     async createGenre(@Args('createGenreInput') createGenreInput: CreateGenreInput) {
         return await this.genresService.createGenre(createGenreInput);
+    }
+
+    @Mutation(() => DeletedSomething)
+    async deleteGenre(@Args('id', { type: () => ID }) id: string) {
+        return await this.genresService.deleteGenre(id);
     }
 }

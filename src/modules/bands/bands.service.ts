@@ -36,4 +36,15 @@ export class BandsService {
         const res_artists = res.data;
         return res_artists;
     }
+
+    async deleteBand(id: string) {
+        const baseURL = `${process.env.BANDS_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.delete(
+            baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
 }

@@ -36,4 +36,15 @@ export class GenresService {
         const res_artists = res.data;
         return res_artists;
     }
+
+    async deleteGenre(id: string) {
+        const baseURL = `${process.env.GENRES_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.delete(
+            baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
 }
