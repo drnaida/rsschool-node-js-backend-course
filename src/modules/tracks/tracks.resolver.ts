@@ -11,6 +11,7 @@ import {AlbumsService} from "../albums/albums.service";
 import {Album} from "../albums/entities/albums.entity";
 import {CreateTrackInput} from "../tracks/dto/create-track.input";
 import {DeletedSomething} from "../artists/entities/delete.entity";
+import {UpdateTrackInput} from "../tracks/dto/update-track.input";
 
 @Resolver(() => Track)
 export class TracksResolver {
@@ -72,5 +73,17 @@ export class TracksResolver {
     @Mutation(() => DeletedSomething)
     async deleteTrack(@Args('id', { type: () => ID }) id: string) {
         return await this.tracksService.deleteTrack(id);
+    }
+
+    @Mutation(returns => Track)
+    async updateTrack(
+        @Args('id') id: string,
+        @Args('updateTrackInput', { type: () => UpdateTrackInput, nullable: false })
+            updateTrackInput: UpdateTrackInput
+    ) {
+        return await this.tracksService.updateTrack(
+            id,
+            updateTrackInput,
+        );
     }
 }
