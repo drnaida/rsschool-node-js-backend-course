@@ -6,26 +6,26 @@ import {Track} from "../../tracks/entities/tracks.entity";
 
 @ObjectType()
 export class Favourites {
-    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: false })
+    @Field(() => ID, {name: 'id', description: 'ID of the question', nullable: true })
     _id: string;
 
-    @Field(() => Int, {description: 'ID of the question', nullable: false })
-    userId: number;
+    @Field(() => ID, {description: 'ID of the question', nullable: true })
+    userId: string;
 
-    @Field(() => Band, {nullable: true})
-    bands: Band;
+    @Field(() => [Band], {nullable: true})
+    bands: Band[];
 
-    @Field(() => Genre, {nullable: true})
-    genres: Genre;
+    @Field(() => [Genre], {nullable: true})
+    genres: Genre[];
 
-    @Field(() => Artist, {nullable: true})
-    artists: Artist;
+    @Field(() => [Artist], {nullable: true})
+    artists: Artist[];
 
-    @Field(() => Track, {nullable: true})
-    tracks: Track;
+    @Field(() => [Track], {nullable: true})
+    tracks: Track[];
 
-    bandsIds: [string];
-    genresIds: [string];
-    tracksIds: [string];
-    artistsIds: [string];
+    bandsIds: string[];
+    genresIds: string[];
+    tracksIds: string[];
+    artistsIds: string[];
 }

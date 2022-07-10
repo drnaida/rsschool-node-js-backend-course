@@ -6,8 +6,8 @@ import {Track} from "../../tracks/entities/tracks.entity";
 
 @InputType()
 export class CreateFavourites {
-    @Field(() => Int, {description: 'ID of the question', nullable: false })
-    userId: number;
+    @Field(() => ID, {description: 'ID of the question', nullable: false })
+    userId: string;
 
     bandsIds: [string];
     genresIds: [string];

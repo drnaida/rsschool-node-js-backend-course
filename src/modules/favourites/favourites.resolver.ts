@@ -33,63 +33,31 @@ export class FavouritesResolver {
 
 
     @Mutation(() => Favourites)
-    async addGenreToFavourites(
-        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    addTrackToFavourites(
+        @Args('id', { type: () => ID, nullable: false }) id: string,
     ) {
-        return await this.favouritesService.add(
-            createFavoriteInput,
-            'genres',
-        );
+        return this.favouritesService.add('tracks', id);
     }
 
     @Mutation(() => Favourites)
-    async addTrackToFavourites(
-        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    addBandToFavourites(
+        @Args('id', { type: () => ID, nullable: false }) id: string,
     ) {
-        return await this.favouritesService.add(
-            createFavoriteInput,
-            'tracks',
-        );
+        return this.favouritesService.add('bands', id);
     }
 
     @Mutation(() => Favourites)
-    async addBandToFavourites(
-        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    addArtistToFavourites(
+        @Args('id', { type: () => ID, nullable: false }) id: string,
     ) {
-        return await this.favouritesService.add(
-            createFavoriteInput,
-            'bands',
-        );
+        return this.favouritesService.add('artists', id);
     }
 
     @Mutation(() => Favourites)
-    async addArtistToFavourites(
-        @Args('createFavoriteInput') createFavoriteInput: CreateFavourites,
+    addGenreToFavourites(
+        @Args('id', { type: () => ID, nullable: false }) id: string,
     ) {
-        return await this.favouritesService.add(
-            createFavoriteInput,
-            'artists',
-        );
-    }
-
-    @Mutation(() => Favourites)
-    deleteGenreFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
-        return this.favouritesService.delete(input, 'genres');
-    }
-
-    @Mutation(() => Favourites)
-    deleteArtistFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
-        return this.favouritesService.delete(input, 'artists');
-    }
-
-    @Mutation(() => Favourites)
-    deleteBandFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
-        return this.favouritesService.delete(input, 'bands');
-    }
-
-    @Mutation(() => Favourites)
-    deleteTrackFromFavourites(@Args('removeFavoriteInput') input: CreateFavourites) {
-        return this.favouritesService.delete(input, 'tracks');
+        return this.favouritesService.add('genres', id);
     }
 
     @ResolveField()

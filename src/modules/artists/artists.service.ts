@@ -10,7 +10,7 @@ export class ArtistsService {
         const baseURL = process.env.ARTISTS_URL;
         const res = await axios.get(baseURL, { params: { limit: pagination.limit, offset: pagination.offset } });
         console.log(res);
-        const res_artists = res.data.items;
+        const res_artists = res.data;
         return res_artists;
     }
 
@@ -18,6 +18,7 @@ export class ArtistsService {
         const baseURL = `${process.env.ARTISTS_URL}/${id}`;
         const res = await axios.get(baseURL);
         const res_artists = res.data;
+        console.log('lalalla', res_artists);
         return res_artists;
     }
 
