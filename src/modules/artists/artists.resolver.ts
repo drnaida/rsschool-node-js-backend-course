@@ -1,10 +1,11 @@
-import {Query, Resolver, Args, ResolveField, Parent, Mutation} from '@nestjs/graphql';
+import {Query, Resolver, Args, ResolveField, Parent, Mutation, ID} from '@nestjs/graphql';
 import { Artist } from './entities/artists.entity';
 import {ArtistsService} from "./artists.service";
 import {Band} from "../bands/entities/bands.entity";
 import {BandsService} from "../bands/bands.service";
 import {User} from "../users/entities/users.entity";
 import {CreateArtistInput} from "../artists/dto/create-artist.input";
+import {DeletedSomething} from "./entities/delete.entity";
 
 @Resolver(() => Artist)
 export class ArtistsResolver {
@@ -33,5 +34,10 @@ export class ArtistsResolver {
     @Mutation(returns => Artist)
     async createArtist(@Args('createArtistInput') createArtistInput: CreateArtistInput) {
         return await this.artistsService.createArtist(createArtistInput);
+    }
+
+    @Mutation(() => DeletedSomething)
+    async deleteArtist(@Args('id', { type: () => ID }) id: string) {
+        return await this.artistsService.deleteArtist(id);
     }
 }

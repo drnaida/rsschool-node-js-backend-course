@@ -39,4 +39,15 @@ export class ArtistsService {
         const res_artists = res.data;
         return res_artists;
     }
+
+    async deleteArtist(id: string) {
+        const baseURL = `${process.env.ARTISTS_URL}/${id}`;
+        const headers = {headers: {Authorization: process.env.AUTHORIZATION_TOKEN}}
+        const res = await axios.delete(
+            baseURL,
+            headers
+        );
+        const res_artists = res.data;
+        return res_artists;
+    }
 }
